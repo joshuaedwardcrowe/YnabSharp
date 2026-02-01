@@ -1,4 +1,4 @@
-namespace YnabSharpa.Collections;
+namespace YnabSharp.Collections;
 
 public record SplitTransactionsByYear(int Year, IEnumerable<SplitTransactions> SplitTransactions)
 {

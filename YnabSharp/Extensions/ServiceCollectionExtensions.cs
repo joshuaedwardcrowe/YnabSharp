@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
-using YnabSharpa.Factories;
-using YnabSharpa.Http;
+using YnabSharp.Factories;
+using YnabSharp.Http;
 
-namespace YnabSharpa.Extensions;
+namespace YnabSharp.Extensions;
 
 public static class ServiceCollectionExtensions
 {

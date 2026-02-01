@@ -1,8 +1,8 @@
-using YnabSharpa.Clients;
-using YnabSharpa.Mappers;
-using YnabSharpa.Responses.Budgets;
+using YnabSharp.Clients;
+using YnabSharp.Mappers;
+using YnabSharp.Responses.Budgets;
 
-namespace YnabSharpa.Connected;
+namespace YnabSharp.Connected;
 
 public class ConnectedBudget : Budget
 {

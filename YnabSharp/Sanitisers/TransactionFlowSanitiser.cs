@@ -1,4 +1,4 @@
-namespace YnabSharpa.Sanitisers;
+namespace YnabSharp.Sanitisers;
 
 public static class TransactionFlowSanitiser
 {

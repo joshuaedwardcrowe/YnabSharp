@@ -1,4 +1,4 @@
-using YnabSharpa.Sanitisers;
+using YnabSharp.Sanitisers;
 
 namespace YnabSharp.Tests.Sanitisers;
 

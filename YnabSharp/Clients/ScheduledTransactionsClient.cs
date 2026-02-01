@@ -1,9 +1,9 @@
-using YnabSharpa.Http;
-using YnabSharpa.Mappers;
-using YnabSharpa.Requests.ScheduledTransactions;
-using YnabSharpa.Responses.ScheduledTransactions;
+using YnabSharp.Http;
+using YnabSharp.Mappers;
+using YnabSharp.Requests.ScheduledTransactions;
+using YnabSharp.Responses.ScheduledTransactions;
 
-namespace YnabSharpa.Clients;
+namespace YnabSharp.Clients;
 
 public class ScheduledTransactionClient(YnabHttpClientBuilder builder, string ynabBudgetApiPath) : YnabApiClient
 {

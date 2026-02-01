@@ -1,7 +1,7 @@
-using YnabSharpa.Responses.Transactions;
-using YnabSharpa.Sanitisers;
+using YnabSharp.Responses.Transactions;
+using YnabSharp.Sanitisers;
 
-namespace YnabSharpa;
+namespace YnabSharp;
 
 // TODO: Hate that this is plural...
 public class SplitTransactions(SplitTransactionResponse splitTransactionResponse)

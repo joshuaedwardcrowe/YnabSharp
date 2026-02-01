@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace YnabSharpa.Responses.Budgets;
+namespace YnabSharp.Responses.Budgets;
 
 public class BudgetResponse
 {

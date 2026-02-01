@@ -1,4 +1,4 @@
-namespace YnabSharpa;
+namespace YnabSharp;
 
 public class CategoryGoal
 {

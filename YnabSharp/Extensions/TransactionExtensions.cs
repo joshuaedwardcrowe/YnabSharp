@@ -1,4 +1,4 @@
-namespace YnabSharpa.Extensions;
+namespace YnabSharp.Extensions;
 
 // TODO: Quick Win - Rename to TransactionFilterExtensions
 public static class TransactionExtensions

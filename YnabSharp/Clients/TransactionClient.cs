@@ -1,10 +1,10 @@
-using YnabSharpa.Factories;
-using YnabSharpa.Http;
-using YnabSharpa.Mappers;
-using YnabSharpa.Requests.Transactions;
-using YnabSharpa.Responses.Transactions;
+using YnabSharp.Factories;
+using YnabSharp.Http;
+using YnabSharp.Mappers;
+using YnabSharp.Requests.Transactions;
+using YnabSharp.Responses.Transactions;
 
-namespace YnabSharpa.Clients;
+namespace YnabSharp.Clients;
 
 // TODO: Write unit tests.
 public class TransactionClient : YnabApiClient

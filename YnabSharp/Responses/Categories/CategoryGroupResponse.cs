@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using YnabSharpa.Responses.Category;
+using YnabSharp.Responses.Category;
 
-namespace YnabSharpa.Responses.Categories;
+namespace YnabSharp.Responses.Categories;
 
 public class CategoryGroupResponse
 {

@@ -1,4 +1,4 @@
-namespace YnabSharpa.Exceptions;
+namespace YnabSharp.Exceptions;
 
 public enum YnabExceptionCode
 {

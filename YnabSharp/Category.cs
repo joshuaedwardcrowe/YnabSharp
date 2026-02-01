@@ -1,7 +1,7 @@
-using YnabSharpa.Responses.Category;
-using YnabSharpa.Sanitisers;
+using YnabSharp.Responses.Category;
+using YnabSharp.Sanitisers;
 
-namespace YnabSharpa;
+namespace YnabSharp;
 
 public class Category(CategoryResponse categoryResponse)
 {

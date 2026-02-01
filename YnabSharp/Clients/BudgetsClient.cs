@@ -1,9 +1,9 @@
-using YnabSharpa.Connected;
-using YnabSharpa.Factories;
-using YnabSharpa.Http;
-using YnabSharpa.Responses.Budgets;
+using YnabSharp.Connected;
+using YnabSharp.Factories;
+using YnabSharp.Http;
+using YnabSharp.Responses.Budgets;
 
-namespace YnabSharpa.Clients;
+namespace YnabSharp.Clients;
 
 // TODO: Write unit tests.
 public class BudgetsClient : YnabApiClient

@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace YnabSharpa.Converters;
+namespace YnabSharp.Converters;
 
 public class IgnoreEmptyStringNullableEnumConverter : JsonConverterFactory
 {

@@ -1,4 +1,4 @@
-namespace YnabSharpa.Http;
+namespace YnabSharp.Http;
 
 public record YnabHttpError(
     string Id,

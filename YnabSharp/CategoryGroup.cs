@@ -1,7 +1,7 @@
-using YnabSharpa.Responses.Categories;
-using YnabSharpa.Sanitisers;
+using YnabSharp.Responses.Categories;
+using YnabSharp.Sanitisers;
 
-namespace YnabSharpa;
+namespace YnabSharp;
 
 public class CategoryGroup(CategoryGroupResponse categoryGroupResponse)
 {

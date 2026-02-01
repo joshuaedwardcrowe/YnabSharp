@@ -1,6 +1,6 @@
-using YnabSharpa.Responses.Transactions;
+using YnabSharp.Responses.Transactions;
 
-namespace YnabSharpa.Factories;
+namespace YnabSharp.Factories;
 
 // TODO: Write unit tests.
 public class DefaultTransactionFactory : ITransactionFactory

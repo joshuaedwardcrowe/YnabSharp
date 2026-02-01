@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace YnabSharpa.Http;
+namespace YnabSharp.Http;
 
 public class YnabHttpResponseContent<TResponseData> where TResponseData : class
 {

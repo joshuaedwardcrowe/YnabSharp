@@ -1,6 +1,6 @@
-using YnabSharpa.Responses.Budgets;
+using YnabSharp.Responses.Budgets;
 
-namespace YnabSharpa;
+namespace YnabSharp;
 
 public class Budget(BudgetResponse budgetResponse)
 {

@@ -1,10 +1,10 @@
-using YnabSharpa.Connected;
-using YnabSharpa.Factories;
-using YnabSharpa.Http;
-using YnabSharpa.Mappers;
-using YnabSharpa.Responses.Accounts;
+using YnabSharp.Connected;
+using YnabSharp.Factories;
+using YnabSharp.Http;
+using YnabSharp.Mappers;
+using YnabSharp.Responses.Accounts;
 
-namespace YnabSharpa.Clients;
+namespace YnabSharp.Clients;
 
 // TODO: Write unit tests.
 public class AccountClient : YnabApiClient

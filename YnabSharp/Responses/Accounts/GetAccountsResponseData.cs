@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace YnabSharpa.Responses.Accounts;
+namespace YnabSharp.Responses.Accounts;
 
 public class GetAccountsResponseData
 {

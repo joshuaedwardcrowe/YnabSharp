@@ -1,4 +1,4 @@
-namespace YnabSharpa.Mappers;
+namespace YnabSharp.Mappers;
 
 public static class TransactionMapping
 {

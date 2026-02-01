@@ -1,7 +1,7 @@
-using YnabSharpa.Http;
-using YnabSharpa.Responses.Categories;
+using YnabSharp.Http;
+using YnabSharp.Responses.Categories;
 
-namespace YnabSharpa.Clients;
+namespace YnabSharp.Clients;
 
 public class CategoryClient(YnabHttpClientBuilder builder, string ynabBudgetApiPath) : YnabApiClient
 {

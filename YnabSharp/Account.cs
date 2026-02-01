@@ -1,7 +1,7 @@
-using YnabSharpa.Responses.Accounts;
-using YnabSharpa.Sanitisers;
+using YnabSharp.Responses.Accounts;
+using YnabSharp.Sanitisers;
 
-namespace YnabSharpa;
+namespace YnabSharp;
 
 public class Account(AccountResponse response)
 {

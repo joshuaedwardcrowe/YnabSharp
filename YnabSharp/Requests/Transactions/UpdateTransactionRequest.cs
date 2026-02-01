@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace YnabSharpa.Requests.Transactions;
+namespace YnabSharp.Requests.Transactions;
 
 public class UpdateTransactionRequest(IEnumerable<TransactionRequest> transactions)
 {

@@ -1,4 +1,4 @@
-namespace YnabSharpa.Extensions;
+namespace YnabSharp.Extensions;
 
 public static class AccountExtensions
 {

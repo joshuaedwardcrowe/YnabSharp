@@ -1,6 +1,6 @@
-using YnabSharpa.Sanitisers;
+using YnabSharp.Sanitisers;
 
-namespace YnabSharpa;
+namespace YnabSharp;
 
 public class NewAccount(string name, AccountType type, int balance)
 {

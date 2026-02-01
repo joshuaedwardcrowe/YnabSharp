@@ -1,7 +1,7 @@
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace YnabSharpa.Http;
+namespace YnabSharp.Http;
 
 public class YnabHttpClientBuilder
 {

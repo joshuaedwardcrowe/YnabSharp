@@ -1,4 +1,4 @@
-namespace YnabSharpa.Collections;
+namespace YnabSharp.Collections;
 
 public class TransactionsByFlag
 {

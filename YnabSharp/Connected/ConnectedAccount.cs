@@ -1,7 +1,7 @@
-using YnabSharpa.Clients;
-using YnabSharpa.Responses.Accounts;
+using YnabSharp.Clients;
+using YnabSharp.Responses.Accounts;
 
-namespace YnabSharpa.Connected;
+namespace YnabSharp.Connected;
 
 public class ConnectedAccount : Account
 {

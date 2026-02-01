@@ -1,6 +1,6 @@
-using YnabSharpa.Requests.Transactions;
+using YnabSharp.Requests.Transactions;
 
-namespace YnabSharpa.Mappers;
+namespace YnabSharp.Mappers;
 
 public static class TransactionRequestMapping
 {

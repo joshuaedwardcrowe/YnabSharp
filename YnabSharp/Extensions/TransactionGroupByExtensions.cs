@@ -1,7 +1,7 @@
-using YnabSharpa.Collections;
-using YnabSharpa.Sanitisers;
+using YnabSharp.Collections;
+using YnabSharp.Sanitisers;
 
-namespace YnabSharpa.Extensions;
+namespace YnabSharp.Extensions;
 
 public static class TransactionGroupByExtensions
 {

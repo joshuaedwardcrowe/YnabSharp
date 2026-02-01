@@ -1,11 +1,11 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using YnabSharpa.Converters;
-using YnabSharpa.Exceptions;
-using YnabSharpa.Http;
+using YnabSharp.Converters;
+using YnabSharp.Exceptions;
+using YnabSharp.Http;
 
-namespace YnabSharpa.Clients;
+namespace YnabSharp.Clients;
 
 public abstract class YnabApiClient
 {

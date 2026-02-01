@@ -1,6 +1,6 @@
-using YnabSharpa.Requests.ScheduledTransactions;
+using YnabSharp.Requests.ScheduledTransactions;
 
-namespace YnabSharpa.Mappers;
+namespace YnabSharp.Mappers;
 
 public static class ScheduledTransactionRequestMapping
 {

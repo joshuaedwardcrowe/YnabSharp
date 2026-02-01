@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace YnabSharpa.Requests.ScheduledTransactions;
+namespace YnabSharp.Requests.ScheduledTransactions;
 
 public class UpdateScheduledTransactionRequest(ScheduledTransactionRequest scheduledTransactionRequest)
 {

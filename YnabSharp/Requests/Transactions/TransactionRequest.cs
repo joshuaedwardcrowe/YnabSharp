@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace YnabSharpa.Requests.Transactions;
+namespace YnabSharp.Requests.Transactions;
 
 public class TransactionRequest(string id, Guid accountId)
 {

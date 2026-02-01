@@ -1,7 +1,7 @@
-using YnabSharpa.Responses.ScheduledTransactions;
-using YnabSharpa.Sanitisers;
+using YnabSharp.Responses.ScheduledTransactions;
+using YnabSharp.Sanitisers;
 
-namespace YnabSharpa;
+namespace YnabSharp;
 
 public class ScheduledTransaction(ScheduledTransactionsResponse scheduledTransactionsResponse)
 {

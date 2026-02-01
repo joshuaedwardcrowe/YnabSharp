@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace YnabSharpa.Responses.Transactions;
+namespace YnabSharp.Responses.Transactions;
 
 public record TransactionResponse : SplitTransactionResponse
 {

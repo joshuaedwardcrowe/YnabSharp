@@ -1,6 +1,6 @@
-using YnabSharpa.Responses.Transactions;
+using YnabSharp.Responses.Transactions;
 
-namespace YnabSharpa;
+namespace YnabSharp;
 
 public class Transaction(TransactionResponse transactionResponse) : SplitTransactions(transactionResponse)
 {

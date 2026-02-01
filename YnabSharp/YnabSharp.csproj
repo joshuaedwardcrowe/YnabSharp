@@ -4,7 +4,14 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>YnabSharpa </RootNamespace>
+        <RootNamespace>YnabSharp</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>YnabSharp</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Joshua Crowe</Authors>
+        <Company>Joshua Crowe</Company>
     </PropertyGroup>
 
     <ItemGroup>

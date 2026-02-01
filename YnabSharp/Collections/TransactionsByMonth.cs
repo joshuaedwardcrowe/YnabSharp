@@ -1,6 +1,6 @@
-using YnabSharpa.Sanitisers;
+using YnabSharp.Sanitisers;
 
-namespace YnabSharpa.Collections;
+namespace YnabSharp.Collections;
 
 public class TransactionsByMonth
 {

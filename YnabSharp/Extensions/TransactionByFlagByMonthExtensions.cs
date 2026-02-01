@@ -1,6 +1,6 @@
-using YnabSharpa.Collections;
+using YnabSharp.Collections;
 
-namespace YnabSharpa.Extensions;
+namespace YnabSharp.Extensions;
 
 public static class TransactionByFlagByMonthExtensions
 {

@@ -1,4 +1,4 @@
-namespace YnabSharpa;
+namespace YnabSharp;
 
 public record MovedTransaction(
     string Id,

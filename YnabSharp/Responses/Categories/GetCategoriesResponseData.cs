@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace YnabSharpa.Responses.Categories;
+namespace YnabSharp.Responses.Categories;
 
 public class GetCategoriesResponseData
 {

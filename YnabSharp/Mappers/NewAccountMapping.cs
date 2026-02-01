@@ -1,6 +1,6 @@
-using YnabSharpa.Responses.Accounts;
+using YnabSharp.Responses.Accounts;
 
-namespace YnabSharpa.Mappers;
+namespace YnabSharp.Mappers;
 
 public static class NewAccountMapping
 {
