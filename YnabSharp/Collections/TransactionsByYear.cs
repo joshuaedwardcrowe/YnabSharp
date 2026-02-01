@@ -1,0 +1,3 @@
+namespace YnabSharpa.Collections;
+
+public record TransactionsByYear(int Year, IEnumerable<Transaction> Transactions);

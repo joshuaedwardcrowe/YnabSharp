@@ -1,0 +1,12 @@
+using YnabSharpa.Requests.ScheduledTransactions;
+
+namespace YnabSharpa.Mappers;
+
+public static class ScheduledTransactionRequestMapping
+{
+    public static ScheduledTransactionRequest ToScheduledTransactionRequest(
+        this MovedScheduledTransaction movedScheduledTransaction)
+            => new ScheduledTransactionRequest(
+                movedScheduledTransaction.Id,
+                movedScheduledTransaction.AccountId);
+}

@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabSharp", "YnabSharp\YnabSharp.csproj", "{4D763B49-7DD5-488A-BE5A-083BFE9108FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{528597EC-71D9-431E-A46E-B1F060A82A2A}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		LICENSE = LICENSE
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabSharp.Tests", "YnabSharp.Tests\YnabSharp.Tests.csproj", "{603D8C36-71AF-423D-B27D-F78C3B09EA0B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ADR", "ADR", "{B5381D3F-A87C-459E-BE0F-27B0AC6A1D56}"
+	ProjectSection(SolutionItems) = preProject
+		ADR\ADR01-Null-ArgumentValue-In-InstructionArgumentBuilders.md = ADR\ADR01-Null-ArgumentValue-In-InstructionArgumentBuilders.md
+		CONCEPTS.md = CONCEPTS.md
+		FUTURE-ADR.md = FUTURE-ADR.md
+		ADR\ADR02-Storing-Data.md = ADR\ADR02-Storing-Data.md
+		ADR\ynab-database-diagram.png = ADR\ynab-database-diagram.png
+		ADR\ADR03-Exceptional-Cicumstances.md = ADR\ADR03-Exceptional-Cicumstances.md
+		ADR\Best-Practices.md = ADR\Best-Practices.md
+		ADR\ADR09-Cli-Workflow-Concept.md = ADR\ADR09-Cli-Workflow-Concept.md
+		ADR\ADR08-SpendfulnessBudgetClient.md = ADR\ADR08-SpendfulnessBudgetClient.md
+		ADR\ADR08-Cli-Concept.md = ADR\ADR08-Cli-Concept.md
+		ADR\ADR05-Connected-API-Concept.md = ADR\ADR05-Connected-API-Concept.md
+		ADR\ADR06-Aggregation-Concept.md = ADR\ADR06-Aggregation-Concept.md
+		ADR\ADR07-Instruction-Parser.md = ADR\ADR07-Instruction-Parser.md
+		ADR\ADR04-Itemisation-Intelligence.md = ADR\ADR04-Itemisation-Intelligence.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D763B49-7DD5-488A-BE5A-083BFE9108FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D763B49-7DD5-488A-BE5A-083BFE9108FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D763B49-7DD5-488A-BE5A-083BFE9108FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D763B49-7DD5-488A-BE5A-083BFE9108FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
