@@ -24,12 +24,20 @@ public class ConnectedBudget : Budget
         _scheduledTransactionsClient = scheduledTransactionsClient;
     }
 
-    public Task<IEnumerable<Account>> GetAccounts() => _accountClient.GetAll();
-    public Task<ConnectedAccount> GetAccount(Guid id) => _accountClient.Get(id);
-    public Task<IEnumerable<CategoryGroup>> GetCategoryGroups() => _categoryClient.GetAll();
-    public Task<IEnumerable<Transaction>> GetTransactions() => _transactionClient.GetAll();
-    public Task<Transaction> GetTransaction(string id) => _transactionClient.Get(id);
-    public Task<ConnectedAccount> CreateAccount(NewAccount newAccount) => _accountClient.Create(newAccount);
+    public Task<IEnumerable<Account>> GetAccounts() =>
+        _accountClient.GetAll();
+    public Task<ConnectedAccount> GetAccount(Guid id)
+        => _accountClient.Get(id);
+    public Task<IEnumerable<CategoryGroup>> GetCategoryGroups()
+        => _categoryClient.GetAll();
+    public Task<IEnumerable<Transaction>> GetTransactions()
+        => _transactionClient.GetAll();
+    public Task<Transaction> GetTransaction(string id) 
+        => _transactionClient.Get(id);
+    public Task<IEnumerable<Transaction>> CreateTransactions(IEnumerable<Transaction> transactions) => 
+        _transactionClient.Create(transactions);
+    public Task<ConnectedAccount> CreateAccount(NewAccount newAccount)
+        => _accountClient.Create(newAccount);
     
     public async Task MoveAccountTransactions(ConnectedAccount fromAccount, ConnectedAccount toAccount)
     {

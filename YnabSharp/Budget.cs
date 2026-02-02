@@ -8,6 +8,11 @@ public class Budget(BudgetResponse budgetResponse)
     /// Unique identifier of the budget.
     /// </summary>
     public Guid Id => budgetResponse.Id;
+
+    /// <summary>
+    /// Name of the budget.
+    /// </summary>
+    public string Name => budgetResponse.Name;
     
     /// <summary>
     /// When the budget was created.

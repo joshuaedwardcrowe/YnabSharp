@@ -10,7 +10,7 @@ public class BudgetsClient : YnabApiClient
 {
     private readonly YnabHttpClientBuilder _httpClientBuilder;
     private readonly IEnumerable<ITransactionFactory> _transactionFactories;
-
+    
     public BudgetsClient(
         YnabHttpClientBuilder httpClientBuilder, 
         IEnumerable<ITransactionFactory> transactionFactories)
@@ -18,11 +18,29 @@ public class BudgetsClient : YnabApiClient
         _httpClientBuilder = httpClientBuilder;
         _transactionFactories = transactionFactories;
     }
+    
+    public BudgetsClient(YnabHttpClientBuilder httpClientBuilder)
+    {
+        _httpClientBuilder = httpClientBuilder;
+        _transactionFactories = new List<ITransactionFactory>();
+    }
 
     public async Task<IEnumerable<ConnectedBudget>> GetBudgets()
     {
         var response = await Get<GetBudgetsResponseData>(string.Empty);
         return ConvertBudgetResponsesToWrappers(response.Data.Budgets);
+    }
+
+    public async Task<ConnectedBudget> GetBudget(Guid budgetId)
+    {
+        var response = await Get<GetBudgetResponseData>($"budgets/{budgetId}");
+        return ConvertBudgetResponsesToWrappers([response.Data.Budget]).First();
+    }
+
+    public async Task<ConnectedBudget?> GetBudget(string budgetName)
+    {
+        var allBudgets = await GetBudgets();
+        return allBudgets.FirstOrDefault(b => b.Name == budgetName);
     }
 
     private IEnumerable<ConnectedBudget> ConvertBudgetResponsesToWrappers(IEnumerable<BudgetResponse> budgetResponses)

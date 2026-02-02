@@ -7,6 +7,9 @@ public class BudgetResponse
     [JsonPropertyName("id")]
     public Guid Id { get; set; }
     
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+    
     [JsonPropertyName("first_month")]
     public DateOnly FirstMonth { get; set; }
     

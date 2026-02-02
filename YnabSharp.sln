@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ADR", "ADR", "{B5381D3F-A87
 		ADR\ADR04-Itemisation-Intelligence.md = ADR\ADR04-Itemisation-Intelligence.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabSharp.Seeder", "YnabSharp.Seeder\YnabSharp.Seeder.csproj", "{3C6F7CA2-069A-445D-94B6-13ACF289769A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C6F7CA2-069A-445D-94B6-13ACF289769A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C6F7CA2-069A-445D-94B6-13ACF289769A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C6F7CA2-069A-445D-94B6-13ACF289769A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C6F7CA2-069A-445D-94B6-13ACF289769A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

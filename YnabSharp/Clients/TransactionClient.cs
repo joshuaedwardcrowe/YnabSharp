@@ -34,6 +34,18 @@ public class TransactionClient : YnabApiClient
         var response = await Get<GetTransactionResponse>($"{transactionId}");
         return CreateTransaction(response.Data.Transaction);
     }
+    
+    public async Task<IEnumerable<Transaction>> Create(IEnumerable<Transaction> transactions)
+    {
+        var transactionRequests = transactions
+            .Select(transaction => transaction.ToTransactionRequest());
+        
+        var request = new CreateTransactionsRequest(transactionRequests);
+        
+        var response = await Post<CreateTransactionsRequest, GetTransactionsResponse>(string.Empty, request);
+        
+        return response.Data.Transactions.Select(CreateTransaction);
+    }
 
     public async Task<IEnumerable<Transaction>> Move(IEnumerable<MovedTransaction> movedTransactions)
     {
@@ -43,9 +55,16 @@ public class TransactionClient : YnabApiClient
     }
 
     private Transaction CreateTransaction(TransactionResponse transactionResponse)
-        => _transactionFactories
+    {
+        if (!_transactionFactories.Any())
+        {
+            return new Transaction(transactionResponse);
+        }
+        
+        return _transactionFactories
             .First(s => s.CanWorkWith(transactionResponse))
             .Create(transactionResponse);
+    }
     
     protected override HttpClient GetHttpClient() => _httpClientBuilder.Build(_ynabBudgetApiPath,  YnabApiPath.Transactions);
 }
