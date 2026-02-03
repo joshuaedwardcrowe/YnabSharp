@@ -6,27 +6,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{528597EC-7
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		LICENSE = LICENSE
+		.gitignore = .gitignore
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabSharp.Tests", "YnabSharp.Tests\YnabSharp.Tests.csproj", "{603D8C36-71AF-423D-B27D-F78C3B09EA0B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ADR", "ADR", "{B5381D3F-A87C-459E-BE0F-27B0AC6A1D56}"
-	ProjectSection(SolutionItems) = preProject
-		ADR\ADR01-Null-ArgumentValue-In-InstructionArgumentBuilders.md = ADR\ADR01-Null-ArgumentValue-In-InstructionArgumentBuilders.md
-		CONCEPTS.md = CONCEPTS.md
-		FUTURE-ADR.md = FUTURE-ADR.md
-		ADR\ADR02-Storing-Data.md = ADR\ADR02-Storing-Data.md
-		ADR\ynab-database-diagram.png = ADR\ynab-database-diagram.png
-		ADR\ADR03-Exceptional-Cicumstances.md = ADR\ADR03-Exceptional-Cicumstances.md
-		ADR\Best-Practices.md = ADR\Best-Practices.md
-		ADR\ADR09-Cli-Workflow-Concept.md = ADR\ADR09-Cli-Workflow-Concept.md
-		ADR\ADR08-SpendfulnessBudgetClient.md = ADR\ADR08-SpendfulnessBudgetClient.md
-		ADR\ADR08-Cli-Concept.md = ADR\ADR08-Cli-Concept.md
-		ADR\ADR05-Connected-API-Concept.md = ADR\ADR05-Connected-API-Concept.md
-		ADR\ADR06-Aggregation-Concept.md = ADR\ADR06-Aggregation-Concept.md
-		ADR\ADR07-Instruction-Parser.md = ADR\ADR07-Instruction-Parser.md
-		ADR\ADR04-Itemisation-Intelligence.md = ADR\ADR04-Itemisation-Intelligence.md
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabSharp.Seeder", "YnabSharp.Seeder\YnabSharp.Seeder.csproj", "{3C6F7CA2-069A-445D-94B6-13ACF289769A}"
 EndProject
