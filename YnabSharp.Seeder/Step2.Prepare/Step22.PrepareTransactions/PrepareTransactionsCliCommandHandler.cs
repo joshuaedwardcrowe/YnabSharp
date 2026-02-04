@@ -17,7 +17,8 @@ public class PrepareTransactionsCliCommandHandler : ICliCommandHandler<PrepareTr
             .RuleFor(t => t.Amount, f => f.Random.Int(-100000, 100000))
             .RuleFor(t => t.Memo, f => f.Lorem.Sentence())
             .RuleFor(t => t.PayeeName, f => f.Person.FullName)
-            .RuleFor(t => t.CategoryName, f => f.Lorem.Sentence());
+            .RuleFor(t => t.CategoryName, f => f.Lorem.Sentence())
+            .RuleFor(t => t.AccountId, f => f.PickRandom(command.AccountIds));
 
         var transactionResponses = faker.Generate(command.Count);
         

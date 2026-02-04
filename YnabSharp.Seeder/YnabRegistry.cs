@@ -5,6 +5,7 @@ using YnabSharp.Extensions;
 using YnabSharp.Seeder.Step1.SetBudget;
 using YnabSharp.Seeder.Step2.Prepare.Step21.PrepareAccounts;
 using YnabSharp.Seeder.Step2.Prepare.Step22.PrepareTransactions;
+using YnabSharp.Seeder.Step3.Seed.Step33.SeedAccounts;
 
 namespace YnabSharp.Seeder;
 
@@ -17,10 +18,11 @@ public class YnabRegistry : ICliAppBuilderRegistry
         RegisterArtefactFactories(services);
     }
 
-    public void RegisterArtefactFactories(IServiceCollection services)
+    private void RegisterArtefactFactories(IServiceCollection services)
     {
         services.AddSingleton<ICliCommandArtefactFactory, BudgetCliCommandArtefactFactory>();
         services.AddSingleton<ICliCommandArtefactFactory, AccountsCliCommandArtefactFactory>();
-        services.AddSingleton<ICliCommandArtefactFactory, TransactionsCliCommandArtefactFactory>();        
+        services.AddSingleton<ICliCommandArtefactFactory, AccountIdsCliCommandArtefactFactory>();
+        services.AddSingleton<ICliCommandArtefactFactory, TransactionsCliCommandArtefactFactory>();       
     }
 }

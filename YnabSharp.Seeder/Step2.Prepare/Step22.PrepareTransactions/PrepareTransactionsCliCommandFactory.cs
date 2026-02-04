@@ -13,14 +13,14 @@ public class PrepareTransactionsCliCommandFactory : ICliCommandFactory<PrepareCl
 
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
     {
-        var accountsArtefact = artefacts.OfRequiredType<List<Account>>();
+        var accountIdsArtefact = artefacts.OfRequiredType<List<Guid>>();
         
         var countArgument = instruction
             .Arguments
             .OfRequiredType<int>(PrepareTransactionsCliCommand.ArgumentNames.Count);
         
         return new PrepareTransactionsCliCommand(
-            accountsArtefact.ArtefactValue,
+            accountIdsArtefact.ArtefactValue,
             countArgument.ArgumentValue);
     }
 }
