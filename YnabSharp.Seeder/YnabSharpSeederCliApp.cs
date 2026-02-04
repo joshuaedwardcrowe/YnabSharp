@@ -1,17 +1,20 @@
 using KitCli;
-using KitCli.Commands.Abstractions.Io.Outcomes;
+using KitCli.Abstractions.Io;
+using KitCli.Commands.Abstractions.Outcomes;
 using KitCli.Workflow.Abstractions;
 
 namespace YnabSharp.Seeder;
 
-public class YnabSharpSeederCliApp : CliApp
+public class YnabSharpSeederCliApp(ICliWorkflow workflow, ICliIo io) : CliApp(workflow, io)
 {
-    public YnabSharpSeederCliApp(ICliWorkflow workflow, ICliCommandOutcomeIo io) : base(workflow, io)
-    {
-    }
-
     protected override void OnSessionStart()
     {
-        Console.WriteLine("Welcome to the YNAB Seeder");
+        io.Say("Welcome to the YNAB Seeder");
+        io.Pause();
+    }
+
+    protected override void OnRunComplete(ICliWorkflowRun run, CliCommandOutcome[] outcomes)
+    {
+        io.Pause();
     }
 }

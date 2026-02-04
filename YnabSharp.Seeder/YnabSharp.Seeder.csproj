@@ -10,7 +10,7 @@
 
     <ItemGroup>
       <PackageReference Include="Bogus" Version="35.6.5" />
-      <PackageReference Include="KitCli" Version="1.0.5" />
+      <PackageReference Include="KitCli" Version="1.0.10" />
     </ItemGroup>
 
     <ItemGroup>

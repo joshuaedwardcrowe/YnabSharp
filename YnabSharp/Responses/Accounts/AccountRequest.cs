@@ -11,5 +11,5 @@ public class AccountRequest
     public required AccountType Type { get; set; }
 
     [JsonPropertyName("balance")]
-    public decimal Balance { get; set; }
+    public int Balance { get; set; }
 }

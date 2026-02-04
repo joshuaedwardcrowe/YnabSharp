@@ -60,15 +60,15 @@ public abstract class YnabApiClient
     {
         if (!response.IsSuccessStatusCode)
         {
-            var erorrResponseContent = await response.Content.ReadFromJsonAsync<YnabHttpErrorResponseContent>(_jsonOptions);
-            if (erorrResponseContent is null)
+            var content = await response.Content.ReadFromJsonAsync<YnabHttpErrorResponseContent>(_jsonOptions);
+            if (content is null)
             {
                 throw new YnabException(YnabExceptionCode.ApiResponseIsEmpty, $"No error response on {response.RequestMessage?.RequestUri}");
             }
             
             throw new YnabException(
                 YnabExceptionCode.ApiResponseIsError,
-                $"YNAB API Error {erorrResponseContent.Error.Id}: {erorrResponseContent.Error.Detail}");
+                $"YNAB API Error {content.Error.Id} ({content.Error.Name}): {content.Error.Detail}");
         }
     }
 

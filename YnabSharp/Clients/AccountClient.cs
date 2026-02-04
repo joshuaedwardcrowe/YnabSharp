@@ -41,6 +41,13 @@ public class AccountClient : YnabApiClient
         var response = await Post<CreateAccountRequest, CreateAccountResponse>(string.Empty, request);
         return ConvertAccountResponseToConnectedAccount(response.Data.Account);
     }
+
+    public async Task<ConnectedAccount> Create(Account account)
+    {
+        var request = new CreateAccountRequest(account.ToAccountRequest());
+        var response = await Post<CreateAccountRequest, CreateAccountResponse>(string.Empty, request);
+        return ConvertAccountResponseToConnectedAccount(response.Data.Account);
+    }
     
     private ConnectedAccount ConvertAccountResponseToConnectedAccount(AccountResponse accountResponse)
     {

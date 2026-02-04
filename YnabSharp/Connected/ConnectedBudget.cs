@@ -38,6 +38,8 @@ public class ConnectedBudget : Budget
         _transactionClient.Create(transactions);
     public Task<ConnectedAccount> CreateAccount(NewAccount newAccount)
         => _accountClient.Create(newAccount);
+    public Task<ConnectedAccount> CreateAccount(Account account)
+        => _accountClient.Create(account);
     
     public async Task MoveAccountTransactions(ConnectedAccount fromAccount, ConnectedAccount toAccount)
     {

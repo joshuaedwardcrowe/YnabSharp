@@ -1,4 +1,5 @@
 using YnabSharp.Responses.Accounts;
+using YnabSharp.Sanitisers;
 
 namespace YnabSharp.Mappers;
 
@@ -9,7 +10,14 @@ public static class NewAccountMapping
         {
             Name = newAccount.Name,
             Type = newAccount.Type,
-            Balance = newAccount.Balance
+            Balance = MilliunitConverter.PoundsToMilliunit(newAccount.ClearedBalance)
         };
 
+    public static AccountRequest ToAccountRequest(this Account account)
+        => new AccountRequest
+        {
+            Name = account.Name,
+            Type = account.Type,
+            Balance = MilliunitConverter.PoundsToMilliunit(account.ClearedBalance)
+        };
 }

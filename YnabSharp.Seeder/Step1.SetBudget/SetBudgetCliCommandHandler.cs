@@ -1,6 +1,6 @@
 using KitCli.Commands.Abstractions.Handlers;
 using KitCli.Commands.Abstractions.Outcomes;
-using KitCli.Commands.Abstractions.Outcomes.Final;
+using KitCli.Commands.Abstractions.Outcomes.Reusable;
 using Microsoft.Extensions.Options;
 using YnabSharp.Clients;
 using YnabSharp.Http;
@@ -29,8 +29,8 @@ public class SetBudgetCliCommandHandler : ICliCommandHandler<SetBudgetCliCommand
         var budget = await client.GetBudget(command.BudgetName);
         
         var outputOutcome = budget == null 
-            ? new CliCommandOutputOutcome($"Budget '{command.BudgetName}' not found.") 
-            : new CliCommandOutputOutcome($"Budget {command.BudgetName} Identified: {budget.Id}");
+            ? new MessageCliCommandOutcome($"Budget '{command.BudgetName}' not found.") 
+            : new MessageCliCommandOutcome($"Budget {command.BudgetName} Identified: {budget.Id}");
         
         var outcomes = new List<CliCommandOutcome>
         {
