@@ -33,5 +33,6 @@ Linked issue: #
 
 If **Breaking change** or a new cross-cutting pattern: needs an ADR in
 `docs/adr/` in this PR. If this changes behavior: update `CHANGELOG.md`
-under `[Unreleased]`. If this touches currency conversion or the
-Seeder's write path: extra scrutiny, this moves real money.
+under `[Unreleased]`. If this changes behavior a concept doc describes:
+update that doc in `docs/concepts/`. If this touches currency conversion
+or the Seeder's write path: extra scrutiny, this moves real money.
