@@ -1,0 +1,13 @@
+# See CONTRIBUTING.md for how areas map to review requirements.
+# Everything routes to one owner today; split by area as co-owners join.
+
+/YnabSharp/Http/           @joshuaedwardcrowe
+/YnabSharp/Clients/        @joshuaedwardcrowe
+/YnabSharp/Requests/       @joshuaedwardcrowe
+/YnabSharp/Responses/      @joshuaedwardcrowe
+/YnabSharp/Collections/    @joshuaedwardcrowe
+/YnabSharp/Converters/     @joshuaedwardcrowe
+/YnabSharp/Mappers/        @joshuaedwardcrowe
+/YnabSharp/Sanitisers/     @joshuaedwardcrowe
+/YnabSharp.Seeder/         @joshuaedwardcrowe
+/docs/adr/                 @joshuaedwardcrowe
