@@ -52,8 +52,9 @@ jobs:
             echo ""
             echo "Re-sync steps:"
             echo '1. `curl -s https://api.ynab.com/papi/open_api_spec.yaml -o docs/ynab-openapi-spec.yaml`'
-            echo "2. Update the version/date noted in \`docs/ynab-api-coverage.md\`, and its coverage table if anything relevant changed."
-            echo "3. Commit both."
+            echo "2. Update the version/date and coverage table in \`docs/ynab-api-coverage.md\` if anything relevant changed."
+            echo "3. Add a line to that doc's Sync history table — what changed, and whether it matters."
+            echo "4. Commit all three."
             echo ""
             echo "Diff (may be truncated):"
             echo '```diff'

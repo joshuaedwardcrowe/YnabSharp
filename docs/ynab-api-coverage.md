@@ -51,3 +51,14 @@ diff docs/ynab-openapi-spec.yaml /tmp/live-spec.yaml
 The scheduled workflow does this automatically and opens an issue if
 they differ — this is the manual equivalent, for whenever you want to
 check without waiting for the schedule.
+
+When resolving a drift issue: re-vendor the spec, update the version/
+date above and the coverage table if anything relevant changed, and add
+a line below. The diff itself tells you *that* something changed; this
+log is for the human judgment call on whether it *matters*.
+
+## Sync history
+
+| Date | Spec version | What changed |
+|---|---|---|
+| 2026-07-26 | — → 1.86.0 | Initial vendoring. Discovered the `Budgets` → `Plans` rename (see above) and the `Money Movements` resource while comparing against YnabSharp's actual coverage — neither is otherwise recorded anywhere. |
