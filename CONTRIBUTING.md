@@ -102,6 +102,16 @@ Every squash-merged PR that changes behavior gets a line in
 [`CHANGELOG.md`](CHANGELOG.md) under `[Unreleased]`, in [Keep a
 Changelog](https://keepachangelog.com/) format.
 
+**To cut a release:** open a PR that bumps `<Version>` in
+`YnabSharp/YnabSharp.csproj` — nothing else, so it's easy to review —
+and merge it. Then run the [`Publish`](.github/workflows/publish.yml)
+workflow manually from the Actions tab (`workflow_dispatch` — it never
+triggers on its own). It builds, tests, packs, and pushes that exact
+version to NuGet, then moves `CHANGELOG.md`'s `[Unreleased]` section
+under a new `[version] - date` heading, tags the commit `vX.Y.Z`, and
+creates a GitHub Release from it. Requires a `NUGET_API_KEY` repository
+secret to be configured first.
+
 ## A note on the Seeder
 
 `YnabSharp.Seeder` writes real data to a real YNAB budget via the live
