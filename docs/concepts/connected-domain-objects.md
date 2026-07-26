@@ -63,6 +63,26 @@ holds) and hands them to `new ConnectedAccount(...)`.
 `ConnectedAccount` then exposes `GetTransactions()`/
 `GetScheduledTransactions()`, filtered down to just that account's `Id`.
 
+### What this looks like from the outside
+
+The point of building the object graph this way is that a consumer
+never touches `AccountClient`, `TransactionClient`, or a budget/account
+path segment directly — each object handed back already carries what it
+needs to go one level deeper:
+
+```csharp
+var budgetsClient = new BudgetsClient(httpClientBuilder);
+
+var budget = await budgetsClient.GetBudget("My Budget"); // ConnectedBudget
+var account = await budget.GetAccount(accountId);        // ConnectedAccount
+var transactions = await account.GetTransactions();      // that account's transactions only
+```
+
+Three calls, three different clients doing the actual HTTP work behind
+the scenes (`BudgetsClient` → `AccountClient` → `TransactionClient`),
+and the caller never constructs any of them or repeats a budget/account
+ID — each step's return value *is* the next step's starting point.
+
 None of this wiring goes through the DI container at the point of use.
 `AddYnab()` (`Extensions/ServiceCollectionExtensions.cs`) only registers
 what's genuinely a singleton for the app's lifetime — `YnabHttpClientBuilder`
