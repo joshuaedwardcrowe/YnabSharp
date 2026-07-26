@@ -40,6 +40,22 @@ the answer should be a link, not archaeology.
 - We squash-merge, so the PR title ends up as the commit title on `main`
   and the changelog line.
 
+## Testing
+
+- **Build test doubles reusably from the start, not as a private nested
+  class you promote later.** If a sibling class carries a
+  `// TODO: Write unit tests.` marker, that's a signal more tests of the
+  same shape are coming — put the double in `YnabSharp.Tests/TestHelpers/`
+  the first time, not the second.
+- **Serialize real DTOs instead of hand-writing JSON string literals**
+  for canned API response bodies. Construct the actual response type
+  (e.g. `PlanResponse`, `GetPlanResponseData`) and serialize it with
+  `JsonSerializer.Serialize` — the fixture can't drift from the real
+  wire shape, and a `[JsonPropertyName]` rename breaks the build instead
+  of silently invalidating the test.
+- **Name test doubles `Test*`** (`TestHttpMessageHandler`,
+  `TestHttpClientFactory`), not `Stub*`/`Fake*`/`Mock*`.
+
 ## ADRs
 
 An [ADR](docs/adr/) (Architecture Decision Record) captures a decision,
