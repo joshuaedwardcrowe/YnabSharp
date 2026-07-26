@@ -15,6 +15,7 @@ dotnet add package YnabSharp
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 using YnabSharp.Clients;
 using YnabSharp.Extensions;
 using YnabSharp.Http;
@@ -34,13 +35,21 @@ var transactions = await budget.GetTransactions();
 
 foreach (var transaction in transactions)
     Console.WriteLine($"{transaction.Occured:d}  {transaction.PayeeName}  {transaction.Amount:C}");
+
+// budget/account/transaction objects chain — each one already carries
+// what it needs to go a level deeper, no re-plumbing required.
+var accounts = await budget.GetAccounts();
+var account = await budget.GetAccount(accounts.First().Id); // now a ConnectedAccount
+var accountTransactions = await account.GetTransactions();  // that account's transactions only
 ```
 
 `transaction.Amount` above is already a `decimal` in pounds — YNAB's
 API represents money as integer milliunits on the wire, converted
 automatically at the boundary. See
 [`docs/concepts/milliunit-currency-conversion.md`](docs/concepts/milliunit-currency-conversion.md)
-before writing any code that reads or writes an amount directly.
+before writing any code that reads or writes an amount directly, and
+[`docs/concepts/connected-domain-objects.md`](docs/concepts/connected-domain-objects.md)
+for more on the chaining above.
 
 ## Learn more
 
