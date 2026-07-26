@@ -1,0 +1,111 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Check NUGET_API_KEY is configured
+        run: |
+          if [ -z "${{ secrets.NUGET_API_KEY }}" ]; then
+            echo "::error::NUGET_API_KEY secret is not set. Add it under Settings > Secrets and variables > Actions before running this workflow."
+            exit 1
+          fi
+
+      - name: Restore
+        run: dotnet restore YnabSharp.sln
+
+      - name: Build
+        run: dotnet build YnabSharp.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test YnabSharp.sln --configuration Release --no-build
+
+      - name: Read version
+        id: version
+        run: |
+          version=$(grep -oE '<Version>[^<]+</Version>' YnabSharp/YnabSharp.csproj | head -n1 | sed -E 's/<\/?Version>//g')
+          if [ -z "$version" ]; then
+            echo "::error::Could not read <Version> from YnabSharp/YnabSharp.csproj"
+            exit 1
+          fi
+          echo "Publishing version $version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      # Same build output as the Build step above, not rebuilt — the
+      # version isn't mutated in between, so there's no version/binary
+      # mismatch risk (unlike KitCli/KitCli#13).
+      - name: Pack
+        run: dotnet pack YnabSharp/YnabSharp.csproj --configuration Release --no-build --output ./nupkgs
+
+      - name: Push to NuGet
+        run: dotnet nuget push "./nupkgs/YnabSharp.${{ steps.version.outputs.version }}.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      # From here on, the package is already live on NuGet — these
+      # steps are bookkeeping. If one of them fails, the tag/release
+      # can be created by hand afterward without re-publishing.
+      - name: Cut CHANGELOG.md
+        id: changelog
+        run: |
+          set -e
+          version="${{ steps.version.outputs.version }}"
+          release_date=$(date +%Y-%m-%d)
+
+          if ! grep -q "^## \[Unreleased\]" CHANGELOG.md; then
+            echo "::error::No [Unreleased] section found in CHANGELOG.md"
+            exit 1
+          fi
+
+          notes=$(awk '/^## \[Unreleased\]/{flag=1; next} /^## \[/{flag=0} flag' CHANGELOG.md)
+
+          awk -v ver="$version" -v date="$release_date" '
+            /^## \[Unreleased\]/ {
+              print "## [Unreleased]"
+              print ""
+              print "## [" ver "] - " date
+              next
+            }
+            { print }
+          ' CHANGELOG.md > CHANGELOG.md.tmp && mv CHANGELOG.md.tmp CHANGELOG.md
+
+          if [ -z "$(echo "$notes" | tr -d '[:space:]')" ]; then
+            notes="No notable changes recorded."
+          fi
+          {
+            echo "notes<<GHOUTPUTEOF"
+            echo "$notes"
+            echo "GHOUTPUTEOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Commit CHANGELOG.md
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "chore(release): cut CHANGELOG.md for v${{ steps.version.outputs.version }}"
+          git push origin HEAD:main
+
+      - name: Tag release
+        run: |
+          git tag "v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ steps.version.outputs.version }}" \
+            --title "v${{ steps.version.outputs.version }}" \
+            --notes "${{ steps.changelog.outputs.notes }}"
