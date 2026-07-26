@@ -1,59 +1,47 @@
-using System.Net;
-using System.Text;
+using System.Text.Json;
 using YnabSharp.Clients;
 using YnabSharp.Connected;
 using YnabSharp.Http;
+using YnabSharp.Responses.Plans;
+using YnabSharp.Tests.TestHelpers;
 
 namespace YnabSharp.Tests.Clients;
 
 [TestFixture]
 public class PlansClientTests
 {
-    private class StubHttpMessageHandler(string jsonContent) : HttpMessageHandler
+    private static PlansClient CreateClient(string jsonContent, out TestHttpMessageHandler handler)
     {
-        public Uri? RequestedUri { get; private set; }
-
-        protected override Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            RequestedUri = request.RequestUri;
-
-            var response = new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(jsonContent, Encoding.UTF8, "application/json")
-            };
-            return Task.FromResult(response);
-        }
-    }
-
-    private class StubHttpClientFactory(HttpMessageHandler handler) : IHttpClientFactory
-    {
-        public HttpClient CreateClient(string name) => new(handler);
-    }
-
-    private static PlansClient CreateClient(string jsonContent, out StubHttpMessageHandler handler)
-    {
-        handler = new StubHttpMessageHandler(jsonContent);
-        var builder = new YnabHttpClientBuilder(new StubHttpClientFactory(handler)).WithBearerToken("token");
+        handler = new TestHttpMessageHandler(jsonContent);
+        var builder = new YnabHttpClientBuilder(new TestHttpClientFactory(handler)).WithBearerToken("token");
         return new PlansClient(builder);
     }
+
+    private static PlanResponse CreatePlanResponse(Guid planId) => new()
+    {
+        Id = planId,
+        Name = "Test Plan",
+        FirstMonth = new DateOnly(2024, 1, 1),
+        LastMonth = new DateOnly(2024, 6, 1)
+    };
+
+    private static string SerializePlanResponse(PlanResponse planResponse) =>
+        JsonSerializer.Serialize(new YnabHttpResponseContent<GetPlanResponseData>
+        {
+            Data = new GetPlanResponseData { Plan = planResponse }
+        });
+
+    private static string SerializePlansResponse(IEnumerable<PlanResponse> planResponses) =>
+        JsonSerializer.Serialize(new YnabHttpResponseContent<GetPlansResponseData>
+        {
+            Data = new GetPlansResponseData { Plans = planResponses }
+        });
 
     [Test]
     public async Task GivenPlanId_WhenGetPlan_RequestsPlansPathWithNoDuplicatedSegment()
     {
         var planId = Guid.NewGuid();
-        var json = $$"""
-        {
-            "data": {
-                "plan": {
-                    "id": "{{planId}}",
-                    "name": "Test Plan",
-                    "first_month": "2024-01-01",
-                    "last_month": "2024-06-01"
-                }
-            }
-        }
-        """;
+        var json = SerializePlanResponse(CreatePlanResponse(planId));
         var client = CreateClient(json, out var handler);
 
         await client.GetPlan(planId);
@@ -67,20 +55,7 @@ public class PlansClientTests
     public async Task GivenPlansWrapperResponse_WhenGetPlans_DeserializesIntoConnectedPlans()
     {
         var planId = Guid.NewGuid();
-        var json = $$"""
-        {
-            "data": {
-                "plans": [
-                    {
-                        "id": "{{planId}}",
-                        "name": "Test Plan",
-                        "first_month": "2024-01-01",
-                        "last_month": "2024-06-01"
-                    }
-                ]
-            }
-        }
-        """;
+        var json = SerializePlansResponse([CreatePlanResponse(planId)]);
         var client = CreateClient(json, out _);
 
         var plans = (await client.GetPlans()).ToList();
@@ -95,18 +70,7 @@ public class PlansClientTests
     public async Task GivenPlanWrapperResponse_WhenGetPlanByGuid_DeserializesIntoConnectedPlan()
     {
         var planId = Guid.NewGuid();
-        var json = $$"""
-        {
-            "data": {
-                "plan": {
-                    "id": "{{planId}}",
-                    "name": "Test Plan",
-                    "first_month": "2024-01-01",
-                    "last_month": "2024-06-01"
-                }
-            }
-        }
-        """;
+        var json = SerializePlanResponse(CreatePlanResponse(planId));
         var client = CreateClient(json, out _);
 
         var plan = await client.GetPlan(planId);
