@@ -10,7 +10,7 @@ public class SeedAccountsCliCommandHandler(ICliIo cliIo) : ICliCommandHandler<Se
 {
     public async Task<CliCommandOutcome[]> Handle(SeedAccountsCliCommand command, CancellationToken cancellationToken)
     {
-        var createAccountTasks = command.Accounts.Select(account => CreateAccount(command.Budget, account));
+        var createAccountTasks = command.Accounts.Select(account => CreateAccount(command.Plan, account));
         
         var accountIds = await Task.WhenAll(createAccountTasks);
 
@@ -20,9 +20,9 @@ public class SeedAccountsCliCommandHandler(ICliIo cliIo) : ICliCommandHandler<Se
         ];
     }
 
-    private async Task<Guid> CreateAccount(ConnectedBudget budget, Account account)
+    private async Task<Guid> CreateAccount(ConnectedPlan plan, Account account)
     {
-        var seededAccount = await budget.CreateAccount(account);
+        var seededAccount = await plan.CreateAccount(account);
         cliIo.Say($"Seeded Account: {seededAccount.Id}");
         return seededAccount.Id;
     }

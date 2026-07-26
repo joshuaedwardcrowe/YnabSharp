@@ -10,16 +10,16 @@ namespace YnabSharp.Clients;
 public class AccountClient : YnabApiClient
 {
     private readonly YnabHttpClientBuilder _httpClientBuilder;
-    private readonly string _ynabBudgetApiPath;
+    private readonly string _ynabPlanApiPath;
     private readonly IEnumerable<ITransactionFactory> _transactionFactories;
 
     public AccountClient(
         YnabHttpClientBuilder httpClientBuilder,
-        string ynabBudgetApiPath,
+        string ynabPlanApiPath,
         IEnumerable<ITransactionFactory> transactionFactories)
     {
         _httpClientBuilder = httpClientBuilder;
-        _ynabBudgetApiPath = ynabBudgetApiPath;
+        _ynabPlanApiPath = ynabPlanApiPath;
         _transactionFactories = transactionFactories;
     }
 
@@ -51,13 +51,13 @@ public class AccountClient : YnabApiClient
     
     private ConnectedAccount ConvertAccountResponseToConnectedAccount(AccountResponse accountResponse)
     {
-        var transactionClient = new TransactionClient(_httpClientBuilder, _ynabBudgetApiPath, _transactionFactories);
-        var scheduledTransactionClient = new ScheduledTransactionClient(_httpClientBuilder, _ynabBudgetApiPath);
+        var transactionClient = new TransactionClient(_httpClientBuilder, _ynabPlanApiPath, _transactionFactories);
+        var scheduledTransactionClient = new ScheduledTransactionClient(_httpClientBuilder, _ynabPlanApiPath);
         return new ConnectedAccount(transactionClient, scheduledTransactionClient, accountResponse);
     }
-    
+
     protected override HttpClient GetHttpClient() => _httpClientBuilder.Build(
-        // e.g. budgets/{budgetId}
-        _ynabBudgetApiPath,
+        // e.g. plans/{planId}
+        _ynabPlanApiPath,
         YnabApiPath.Accounts);
 }

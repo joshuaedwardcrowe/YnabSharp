@@ -8,7 +8,7 @@ public class SeedTransactionCliCommandHandler : ICliCommandHandler<SeedTransacti
 {
     public async Task<CliCommandOutcome[]> Handle(SeedTransactionsCliCommand command, CancellationToken cancellationToken)
     {
-        var transactions = await command.Budget.CreateTransactions(command.Transactions);
+        var transactions = await command.Plan.CreateTransactions(command.Transactions);
         
         return transactions
             .Select(transaction => new OutputCliCommandOutcome($"Seeded Transaction: {transaction.Id}"))

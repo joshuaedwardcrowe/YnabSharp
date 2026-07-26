@@ -16,7 +16,7 @@ Vendored spec version: **1.86.0**. Last checked: **2026-07-26**.
 | Resource | Spec has | YnabSharp has | |
 |---|---|---|---|
 | User | `GET /user` | nothing | ❌ |
-| Plans (Budgets) | list, get, settings | list, get | ⚠️ |
+| Plans | list, get, settings | list, get | ⚠️ |
 | Accounts | list, create, get | list, create, get | ✅ |
 | Categories | list, get, update, month-get, month-update, group-create, group-update | list only | ⚠️ |
 | Payees | list, create, get, update | nothing | ❌ |
@@ -30,16 +30,6 @@ Every gap above with a `⚠️`/`❌` and real user-facing value has its own
 tracked issue — see the issue tracker rather than duplicating specifics
 here. This table is for "what's the shape of coverage," not "here's the
 backlog."
-
-## Known naming drift
-
-The API's top-level resource was renamed `Budgets` → `Plans` at some
-point after YnabSharp was built (`YnabApiPath.Budgets = "budgets"`,
-`BudgetsClient`, `Budget`, `ConnectedBudget` all still say "Budgets").
-Verified live: both `/v1/budgets` and `/v1/plans` return 401 (not 404)
-unauthenticated, so the old name still works as an alias — this isn't
-broken today, just worth knowing before assuming the two names are
-interchangeable forever.
 
 ## How to re-check
 
