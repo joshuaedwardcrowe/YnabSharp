@@ -1,0 +1,66 @@
+name: YNAB Spec Drift Check
+
+on:
+  schedule:
+    # 06:00 UTC on the 1st of every month. The YNAB API doesn't change
+    # often enough to justify checking more frequently than this.
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  check-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch live spec
+        run: curl -s https://api.ynab.com/papi/open_api_spec.yaml -o /tmp/live-spec.yaml
+
+      - name: Diff against vendored spec
+        id: diff
+        run: |
+          if diff -q docs/ynab-openapi-spec.yaml /tmp/live-spec.yaml > /dev/null; then
+            echo "No drift detected."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            diff docs/ynab-openapi-spec.yaml /tmp/live-spec.yaml > /tmp/spec.diff || true
+            # Keep the issue body well under GitHub's limit even for a
+            # large-scale spec change.
+            head -c 60000 /tmp/spec.diff > /tmp/spec.diff.truncated
+          fi
+
+      - name: Check for an existing open drift issue
+        if: steps.diff.outputs.changed == 'true'
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          count=$(gh issue list --search "YNAB API spec has drifted from the vendored copy in:title" --state open --json number --jq 'length')
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Open drift issue
+        if: steps.diff.outputs.changed == 'true' && steps.existing.outputs.count == '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          {
+            echo "The live YNAB OpenAPI spec no longer matches \`docs/ynab-openapi-spec.yaml\` (vendored at version 1.86.0)."
+            echo ""
+            echo "Re-sync steps:"
+            echo '1. `curl -s https://api.ynab.com/papi/open_api_spec.yaml -o docs/ynab-openapi-spec.yaml`'
+            echo "2. Update the version/date noted in \`docs/ynab-api-coverage.md\`, and its coverage table if anything relevant changed."
+            echo "3. Commit both."
+            echo ""
+            echo "Diff (may be truncated):"
+            echo '```diff'
+            cat /tmp/spec.diff.truncated
+            echo '```'
+          } > /tmp/issue-body.md
+          gh issue create \
+            --title "YNAB API spec has drifted from the vendored copy" \
+            --label bug,area:client,sev:medium \
+            --body-file /tmp/issue-body.md
