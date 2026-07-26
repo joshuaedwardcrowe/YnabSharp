@@ -47,12 +47,13 @@ CI runs the same three steps on every PR and push to `main`.
 - **Always ask before merging** any PR or branch in this repo, every
   time, no exceptions — even if a merge was approved earlier in the
   session. This applies regardless of how confident the change is.
-- **Replying to PR review comments**: `gh` runs as the human's own
-  GitHub account, so a top-level summary comment reads as them talking
-  to themselves. Reply to each comment on its own thread (`gh api
-  repos/{owner}/{repo}/pulls/{pr}/comments/{comment_id}/replies`), not
-  with one combined comment. Prefix every reply with `🤖 **Claude:**` so
-  it's clearly not the human's own voice.
+- **Replying to PR review comments, or commenting on issues**: `gh` runs
+  as the human's own GitHub account, so an unmarked comment reads as
+  them talking to themselves. Prefix every reply/comment with
+  `🤖 **Claude:**` so it's clearly not the human's own voice. For PR
+  review comments specifically, reply to each comment on its own thread
+  (`gh api repos/{owner}/{repo}/pulls/{pr}/comments/{comment_id}/replies`),
+  not with one combined comment.
 - **When auditing all comments on a PR**, use `gh api --paginate` —
   the default page size (30) silently truncates results on PRs with a
   lot of back-and-forth, which can make an already-answered thread look
