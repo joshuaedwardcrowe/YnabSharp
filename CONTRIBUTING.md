@@ -74,6 +74,10 @@ source before writing it down — for a library that moves real money, a
 concept doc describing behavior that doesn't match `main` is actively
 dangerous, not just stale.
 
+**Keep them current.** If your change makes an existing concept doc
+inaccurate, update it in the same PR — don't leave the drift for someone
+else to notice later.
+
 ## Issues
 
 Every issue gets three independent labels once triaged:
