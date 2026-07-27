@@ -12,7 +12,7 @@ public class SeedCheckCliCommandHandler : ICliCommandHandler<SeedCheckCLiCommand
             [
                 new MessageCliCommandOutcome("Are you sure?"),
                 new MessageCliCommandOutcome("This will seed the prepared accounts and transactions"),
-                new MessageCliCommandOutcome("into the identified budget. This cannot be ondone.")
+                new MessageCliCommandOutcome("into the identified plan. This cannot be ondone.")
             ]
         );
     }

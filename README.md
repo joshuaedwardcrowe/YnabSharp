@@ -1,7 +1,7 @@
 # YnabSharp
 
 A .NET client library for the [YNAB API](https://api.ynab.com) — typed
-domain models over YNAB's budgets, accounts, categories, and
+domain models over YNAB's plans, accounts, categories, and
 transactions, with currency handled as `decimal` pounds instead of raw
 milliunit integers.
 
@@ -28,18 +28,18 @@ var httpClientBuilder = services
     .GetRequiredService<YnabHttpClientBuilder>()
     .WithBearerToken(apiKey); // a YNAB personal access token
 
-var budgetsClient = new BudgetsClient(httpClientBuilder);
+var plansClient = new PlansClient(httpClientBuilder);
 
-var budget = await budgetsClient.GetBudget("My Budget"); // or GetBudgets() for all of them
-var transactions = await budget.GetTransactions();
+var plan = await plansClient.GetPlan("My Plan"); // or GetPlans() for all of them
+var transactions = await plan.GetTransactions();
 
 foreach (var transaction in transactions)
     Console.WriteLine($"{transaction.Occured:d}  {transaction.PayeeName}  {transaction.Amount:C}");
 
-// budget/account/transaction objects chain — each one already carries
+// plan/account/transaction objects chain — each one already carries
 // what it needs to go a level deeper, no re-plumbing required.
-var accounts = await budget.GetAccounts();
-var account = await budget.GetAccount(accounts.First().Id); // now a ConnectedAccount
+var accounts = await plan.GetAccounts();
+var account = await plan.GetAccount(accounts.First().Id); // now a ConnectedAccount
 var accountTransactions = await account.GetTransactions();  // that account's transactions only
 ```
 
@@ -60,7 +60,7 @@ for more on the chaining above.
   works today: [milliunit conversion](docs/concepts/milliunit-currency-conversion.md),
   [split transactions](docs/concepts/split-transactions.md),
   [connected domain objects](docs/concepts/connected-domain-objects.md)
-  (the `ConnectedBudget`/`ConnectedAccount` pattern used above).
+  (the `ConnectedPlan`/`ConnectedAccount` pattern used above).
 - [`docs/adr/`](docs/adr/) — architectural decisions and why.
 - [`docs/reviews/`](docs/reviews/) — past architectural reviews.
 - [`docs/ynab-api-coverage.md`](docs/ynab-api-coverage.md) — what this
@@ -70,7 +70,7 @@ for more on the chaining above.
 ## YnabSharp.Seeder
 
 A separate, **unpublished** internal tool that writes real data to a
-real YNAB budget via the live API — there is no sandbox mode. Not
+real YNAB plan via the live API — there is no sandbox mode. Not
 something a consumer of the `YnabSharp` package needs; see
 [`CONTRIBUTING.md`](CONTRIBUTING.md#a-note-on-the-seeder) if you're
 working on it directly.

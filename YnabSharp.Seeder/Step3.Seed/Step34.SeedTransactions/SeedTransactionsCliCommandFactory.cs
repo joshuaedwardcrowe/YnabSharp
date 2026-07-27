@@ -15,14 +15,14 @@ public class SeedTransactionsCliCommandFactory : ICliCommandFactory<SeedCliComma
 
     public CliCommand Create(CliInstruction instruction, List<CliCommandArtefact> artefacts)
     {
-        var budgetArtefact = artefacts
-            .OfRequiredType<ConnectedBudget>();
-        
+        var planArtefact = artefacts
+            .OfRequiredType<ConnectedPlan>();
+
         var transactionsArtefact = artefacts
             .OfRequiredType<List<Transaction>>();
-        
+
         return new SeedTransactionsCliCommand(
-            budgetArtefact.ArtefactValue,
+            planArtefact.ArtefactValue,
             transactionsArtefact.ArtefactValue);
     }
 }

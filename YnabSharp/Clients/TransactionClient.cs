@@ -10,16 +10,16 @@ namespace YnabSharp.Clients;
 public class TransactionClient : YnabApiClient
 {
     private readonly YnabHttpClientBuilder _httpClientBuilder;
-    private readonly string _ynabBudgetApiPath;
+    private readonly string _ynabPlanApiPath;
     private readonly IEnumerable<ITransactionFactory> _transactionFactories;
 
     public TransactionClient(
         YnabHttpClientBuilder httpClientBuilder,
-        string ynabBudgetApiPath,
+        string ynabPlanApiPath,
         IEnumerable<ITransactionFactory> transactionFactories)
     {
         _httpClientBuilder = httpClientBuilder;
-        _ynabBudgetApiPath = ynabBudgetApiPath;
+        _ynabPlanApiPath = ynabPlanApiPath;
         _transactionFactories = transactionFactories;
     }
 
@@ -66,6 +66,6 @@ public class TransactionClient : YnabApiClient
             .Create(transactionResponse);
     }
     
-    protected override HttpClient GetHttpClient() => _httpClientBuilder.Build(_ynabBudgetApiPath,  YnabApiPath.Transactions);
+    protected override HttpClient GetHttpClient() => _httpClientBuilder.Build(_ynabPlanApiPath,  YnabApiPath.Transactions);
 }
 

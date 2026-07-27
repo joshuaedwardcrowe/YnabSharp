@@ -2,7 +2,7 @@ namespace YnabSharp;
 
 public class YnabApiPath
 {
-    public const string Budgets = "budgets";
+    public const string Plans = "plans";
     public const string Accounts = "accounts";
     public const string Categories = "categories";
     public const string Payees = "payees";

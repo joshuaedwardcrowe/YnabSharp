@@ -3,7 +3,7 @@ using YnabSharp.Responses.Categories;
 
 namespace YnabSharp.Clients;
 
-public class CategoryClient(YnabHttpClientBuilder builder, string ynabBudgetApiPath) : YnabApiClient
+public class CategoryClient(YnabHttpClientBuilder builder, string ynabPlanApiPath) : YnabApiClient
 {
     public async Task<IEnumerable<CategoryGroup>> GetAll()
     {
@@ -11,5 +11,5 @@ public class CategoryClient(YnabHttpClientBuilder builder, string ynabBudgetApiP
         return response.Data.CategoryGroups.Select(categoryGroup => new CategoryGroup(categoryGroup));
     }
     
-    protected override HttpClient GetHttpClient() => builder.Build(ynabBudgetApiPath, YnabApiPath.Categories);
+    protected override HttpClient GetHttpClient() => builder.Build(ynabPlanApiPath, YnabApiPath.Categories);
 }

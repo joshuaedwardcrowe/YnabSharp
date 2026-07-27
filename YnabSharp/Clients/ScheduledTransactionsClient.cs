@@ -5,7 +5,7 @@ using YnabSharp.Responses.ScheduledTransactions;
 
 namespace YnabSharp.Clients;
 
-public class ScheduledTransactionClient(YnabHttpClientBuilder builder, string ynabBudgetApiPath) : YnabApiClient
+public class ScheduledTransactionClient(YnabHttpClientBuilder builder, string ynabPlanApiPath) : YnabApiClient
 {
     public async Task<IEnumerable<ScheduledTransaction>> GetAll()
     {
@@ -21,5 +21,5 @@ public class ScheduledTransactionClient(YnabHttpClientBuilder builder, string yn
         return new ScheduledTransaction(response.Data.ScheduledTransaction);
     }
     
-    protected override HttpClient GetHttpClient() => builder.Build(ynabBudgetApiPath,  YnabApiPath.ScheduledTransactions);
+    protected override HttpClient GetHttpClient() => builder.Build(ynabPlanApiPath,  YnabApiPath.ScheduledTransactions);
 }
