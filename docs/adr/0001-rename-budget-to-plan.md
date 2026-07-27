@@ -58,13 +58,20 @@ of course.
 
 ## Consequences
 
-This is a breaking change to the public API shape. No version of
-`YnabSharp` has actually been published yet (no git tags, no GitHub
-Releases exist despite `YnabSharp.csproj` currently reading `1.1.0`),
-so nothing real breaks today — but per `CONTRIBUTING.md`'s "standard
-semver" policy, whenever this library is first published, that release
-owes a major version. `YnabSharp.Seeder` (not published, but shares the
-solution) is updated in the same change so the solution keeps
+This is a breaking change to the public API shape. `YnabSharp` is
+already published: `1.0.0` (2026-02-01) and `1.1.0` (2026-02-08) are
+both live on NuGet, so this **does** break real consumers of the
+current package, if any exist — it's not a hypothetical. Neither of
+those releases has a corresponding git tag or GitHub Release (both were
+published by hand, outside the process `CONTRIBUTING.md` documents);
+that gap is tracked separately and doesn't change what's true today —
+`1.1.0` is the latest version real consumers can install right now.
+
+Per `CONTRIBUTING.md`'s "standard semver" policy, this owes a major
+version bump on next publish: **`2.0.0`**, not `1.2.0` — this changes
+the public API shape of the already-published `1.1.0`, which is exactly
+what a major bump is for. `YnabSharp.Seeder` (not published, but shares
+the solution) is updated in the same change so the solution keeps
 compiling; it isn't a separate compatibility concern since it never
 ships independently.
 
