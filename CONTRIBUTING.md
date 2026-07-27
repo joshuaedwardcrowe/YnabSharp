@@ -36,7 +36,11 @@ the answer should be a link, not archaeology.
   particular, link the issue if one exists, and say how you tested it.
 - CI (`dotnet build` + `dotnet test`) must be green before merge — this
   is enforced by branch protection, not discipline.
-- At least one approving review is required. See [CODEOWNERS](CODEOWNERS).
+- No approving review is enforced while there's a single maintainer —
+  they're also always the PR author, so GitHub won't let them approve
+  their own PR anyway. [CODEOWNERS](CODEOWNERS) still maps areas to
+  owners; turn required-review branch protection back on once a second
+  maintainer joins.
 - We squash-merge, so the PR title ends up as the commit title on `main`
   and the changelog line.
 
