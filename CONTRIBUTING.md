@@ -21,6 +21,9 @@ the answer should be a link, not archaeology.
 
 - Branch off `main`. No long-running branches — trunk-based, short-lived.
 - One logical change per PR.
+- **Keep PRs small: max 20 files, 10-15 preferred.** If a change is going
+  to blow past that, plan the split into multiple PRs upfront, not after
+  the fact.
 - **PR titles use [Conventional Commits](https://www.conventionalcommits.org/):**
   `<type>(scope): <description>` — `type` is one of `feat` `fix` `docs`
   `chore` `refactor` `test` `ci`; `scope` is optional and, where it
@@ -175,6 +178,12 @@ not commitments to defend:
    an iteration get the `Estimate` field (Fibonacci story points, not
    time) on the project board — the parent story tracks the outcome,
    not the effort to reach it.
+
+This repo follows [SoloCAIRN](https://github.com/joshuaedwardcrowe/SoloCAIRN)
+for a ticket's Build-stage lifecycle. Per its Breakdown stage, **the
+GitHub Issue itself is the story artifact** — no separate markdown file
+or dedicated location. It's already written down, reviewable via
+comments, and tracked through GitHub's own history.
 
 ## Versioning & releases
 
