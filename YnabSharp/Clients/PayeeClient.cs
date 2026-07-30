@@ -11,5 +11,8 @@ public class PayeeClient(YnabHttpClientBuilder builder, string ynabPlanApiPath) 
         return response.Data.Payees.Select(payee => new Payee(payee));
     }
 
-    protected override HttpClient GetHttpClient() => builder.Build(ynabPlanApiPath, YnabApiPath.Payees);
+    protected override HttpClient GetHttpClient() => builder.Build(
+        // e.g. plans/{planId}
+        ynabPlanApiPath,
+        YnabApiPath.Payees);
 }
