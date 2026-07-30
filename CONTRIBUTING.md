@@ -37,6 +37,10 @@ the answer should be a link, not archaeology.
   later.
 - Fill in the [PR template](.github/PULL_REQUEST_TEMPLATE.md) — in
   particular, link the issue if one exists, and say how you tested it.
+- **If a linked issue exists, mirror its labels and milestone onto the
+  PR.** GitHub doesn't do this automatically. Keeping both in sync means
+  milestone/label filtering and progress tracking work across the PR
+  list too, not just issues.
 - CI (`dotnet build` + `dotnet test`) must be green before merge — this
   is enforced by branch protection, not discipline.
 - No approving review is enforced while there's a single maintainer —
