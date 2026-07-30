@@ -52,12 +52,14 @@ public class PlansClient : YnabApiClient
             // TODO: Potentially have these in their own methods.
             var accountClient = new AccountClient(_httpClientBuilder, ynabPlanApiPath, _transactionFactories);
             var categoryClient = new CategoryClient(_httpClientBuilder, ynabPlanApiPath);
+            var payeeClient = new PayeeClient(_httpClientBuilder, ynabPlanApiPath);
             var transactionClient = new TransactionClient(_httpClientBuilder, ynabPlanApiPath, _transactionFactories);
             var scheduledTransactionClient = new ScheduledTransactionClient(_httpClientBuilder, ynabPlanApiPath);
 
             yield return new ConnectedPlan(
                 accountClient,
                 categoryClient,
+                payeeClient,
                 transactionClient,
                 scheduledTransactionClient,
                 planResponse);

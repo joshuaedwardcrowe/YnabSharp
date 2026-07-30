@@ -5,6 +5,8 @@ All notable changes to YnabSharp are documented here. Format is
 
 ## [Unreleased]
 
+- Added `PayeeClient`/`Payee` and `ConnectedPlan.GetPayees()`, covering
+  `GET /plans/{plan_id}/payees` (#79).
 - **Breaking:** renamed the public API from `Budget`/`BudgetsClient`/
   `ConnectedBudget` to `Plan`/`PlansClient`/`ConnectedPlan` to match the
   YNAB API's canonical `/plans/` resource (#51). Also fixes a
