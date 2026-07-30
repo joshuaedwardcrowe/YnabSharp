@@ -5,6 +5,7 @@ namespace YnabSharp.Clients;
 
 public class PayeeClient(YnabHttpClientBuilder builder, string ynabPlanApiPath) : YnabApiClient
 {
+    /// <summary>Returns all payees for the plan.</summary>
     public async Task<IEnumerable<Payee>> GetAll()
     {
         var response = await Get<GetPayeesResponseData>(string.Empty);
