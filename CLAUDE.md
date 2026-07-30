@@ -38,6 +38,12 @@ CI runs the same three steps on every PR and push to `main`.
 - **PRs mirror their linked issue's labels and milestone.** GitHub
   doesn't copy these automatically — set them explicitly when opening
   the PR, not just on the issue.
+- **Move the issue's `Status` field on project #11 at each gate** (see
+  [`CONTRIBUTING.md`](CONTRIBUTING.md)'s "Status gates" section) as work
+  actually happens — starting implementation, opening the PR, resolving
+  review comments, merging. It's easy to do the work and forget the
+  board; a ticket sitting at `Backlog` while merged is a stale signal,
+  not a harmless oversight.
 - **PR template triggers** (`.github/PULL_REQUEST_TEMPLATE.md`):
   breaking change or new cross-cutting pattern → ADR required in the
   same PR. Behavior change → `CHANGELOG.md` entry. Behavior a concept

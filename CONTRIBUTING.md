@@ -187,6 +187,24 @@ not commitments to defend:
    note](https://github.com/joshuaedwardcrowe/SoloCAIRN/blob/main/docs/03-lifecycle.md)
    for the full reasoning.
 
+### Status gates
+
+Once a ticket has an Estimate (step 7 above), the [YnabSharp API
+Coverage project](https://github.com/users/joshuaedwardcrowe/projects/11)'s
+`Status` field tracks it through these Agile/Scrum-style gates. Move the
+card at each transition — don't let it sit stale while the real work
+moves past it:
+
+| Status | Move here when |
+|---|---|
+| `Backlog` | Triaged (has all three labels) but not yet pulled into an iteration. |
+| `To Do` | Pulled into the current iteration and given an `Estimate`. |
+| `In Development` | Implementation starts — first commit/branch pushed. |
+| `In Review` | PR opened, labels/milestone mirrored from the issue. |
+| `In QA` | All PR review threads resolved and CI is green — final verification before merge. |
+| `Ready for Release` | Merged, but deliberately held back from `Done` — e.g. waiting on a batch of related PRs, or a NuGet release someone's specifically waiting on. Optional: most tickets skip straight to `Done` on merge, matching this repo's actual release cadence (PRs merge continuously; `CHANGELOG.md`'s `[Unreleased]` section can hold several before a version is cut). |
+| `Done` | Merged and the issue is closed. This is the default landing spot from `In QA` — don't hold a ticket at `Ready for Release` without a specific reason to. |
+
 This repo follows [SoloCAIRN](https://github.com/joshuaedwardcrowe/SoloCAIRN)
 for a ticket's Build-stage lifecycle, with one extension specific to
 this repo, not something SoloCAIRN itself prescribes: **the GitHub
