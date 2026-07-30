@@ -41,17 +41,18 @@ private IEnumerable<ConnectedPlan> ConvertPlanResponsesToWrappers(IEnumerable<Pl
 
         var accountClient = new AccountClient(_httpClientBuilder, ynabPlanApiPath, _transactionFactories);
         var categoryClient = new CategoryClient(_httpClientBuilder, ynabPlanApiPath);
+        var payeeClient = new PayeeClient(_httpClientBuilder, ynabPlanApiPath);
         var transactionClient = new TransactionClient(_httpClientBuilder, ynabPlanApiPath, _transactionFactories);
         var scheduledTransactionClient = new ScheduledTransactionClient(_httpClientBuilder, ynabPlanApiPath);
 
-        yield return new ConnectedPlan(accountClient, categoryClient, transactionClient, scheduledTransactionClient, planResponse);
+        yield return new ConnectedPlan(accountClient, categoryClient, payeeClient, transactionClient, scheduledTransactionClient, planResponse);
     }
 }
 ```
 
 `ConnectedPlan` is a `Plan` (same read-only properties) that also
 exposes `GetAccounts()`, `GetAccount(id)`, `GetCategoryGroups()`,
-`GetTransactions()`, `GetTransaction(id)`, `CreateTransactions(...)`,
+`GetPayees()`, `GetTransactions()`, `GetTransaction(id)`, `CreateTransactions(...)`,
 `CreateAccount(...)`, and `MoveAccountTransactions(from, to)` — each just
 delegating to the client it was handed at construction.
 

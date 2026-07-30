@@ -8,18 +8,21 @@ public class ConnectedPlan : Plan
 {
     private readonly AccountClient _accountClient;
     private readonly CategoryClient _categoryClient;
+    private readonly PayeeClient _payeeClient;
     private readonly TransactionClient _transactionClient;
     private readonly ScheduledTransactionClient _scheduledTransactionsClient;
 
     public ConnectedPlan(
         AccountClient accountClient,
         CategoryClient categoryClient,
+        PayeeClient payeeClient,
         TransactionClient transactionClient,
         ScheduledTransactionClient scheduledTransactionsClient,
         PlanResponse planResponse) : base(planResponse)
     {
         _accountClient = accountClient;
         _categoryClient = categoryClient;
+        _payeeClient = payeeClient;
         _transactionClient = transactionClient;
         _scheduledTransactionsClient = scheduledTransactionsClient;
     }
@@ -30,6 +33,8 @@ public class ConnectedPlan : Plan
         => _accountClient.Get(id);
     public Task<IEnumerable<CategoryGroup>> GetCategoryGroups()
         => _categoryClient.GetAll();
+    public Task<IEnumerable<Payee>> GetPayees()
+        => _payeeClient.GetAll();
     public Task<IEnumerable<Transaction>> GetTransactions()
         => _transactionClient.GetAll();
     public Task<Transaction> GetTransaction(string id)
