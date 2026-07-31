@@ -63,6 +63,7 @@ exposes:
 - `GetAccount(id)`
 - `GetCategoryGroups()`
 - `GetPayees()`
+- `GetPayee(id)`
 - `GetTransactions()`
 - `GetTransaction(id)`
 - `CreateTransactions(...)`

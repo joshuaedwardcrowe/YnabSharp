@@ -12,6 +12,13 @@ public class PayeeClient(YnabHttpClientBuilder httpClientBuilder, string ynabPla
         return response.Data.Payees.Select(payee => new Payee(payee));
     }
 
+    /// <summary>Returns the payee with the given ID.</summary>
+    public async Task<Payee> Get(Guid payeeId)
+    {
+        var response = await Get<GetPayeeResponseData>($"{payeeId}");
+        return new Payee(response.Data.Payee);
+    }
+
     protected override HttpClient GetHttpClient() => httpClientBuilder.Build(
         // e.g. plans/{planId}
         ynabPlanApiPath,

@@ -35,6 +35,8 @@ public class ConnectedPlan : Plan
         => _categoryClient.GetAll();
     public Task<IEnumerable<Payee>> GetPayees()
         => _payeeClient.GetAll();
+    public Task<Payee> GetPayee(Guid id)
+        => _payeeClient.Get(id);
     public Task<IEnumerable<Transaction>> GetTransactions()
         => _transactionClient.GetAll();
     public Task<Transaction> GetTransaction(string id)

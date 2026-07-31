@@ -55,6 +55,47 @@ public class PayeeClientTests
         Assert.That(requestedPath, Does.Contain($"{YnabPlanApiPath}/{YnabApiPath.Payees}"));
     }
 
+    [Test]
+    public async Task GivenPayeeWrapperResponse_WhenGet_ThenDeserializesIntoPayee()
+    {
+        var payeeId = Guid.NewGuid();
+        var json = SerializePayeeResponse(CreatePayeeResponse(payeeId));
+        var client = CreateClient(json, out _);
+
+        var payee = await client.Get(payeeId);
+
+        Assert.That(payee.Id, Is.EqualTo(payeeId));
+        Assert.That(payee.Name, Is.EqualTo("Test Payee"));
+        Assert.That(payee.TransferAccountId, Is.Null);
+        Assert.That(payee.Deleted, Is.False);
+    }
+
+    [Test]
+    public async Task GivenTransferPayee_WhenGet_ThenExposesTransferAccountId()
+    {
+        var payeeId = Guid.NewGuid();
+        var transferAccountId = Guid.NewGuid();
+        var json = SerializePayeeResponse(CreatePayeeResponse(payeeId, transferAccountId));
+        var client = CreateClient(json, out _);
+
+        var payee = await client.Get(payeeId);
+
+        Assert.That(payee.TransferAccountId, Is.EqualTo(transferAccountId));
+    }
+
+    [Test]
+    public async Task GivenPayeeId_WhenGet_ThenRequestsPayeeIdPathUnderPlan()
+    {
+        var payeeId = Guid.NewGuid();
+        var json = SerializePayeeResponse(CreatePayeeResponse(payeeId));
+        var client = CreateClient(json, out var handler);
+
+        await client.Get(payeeId);
+
+        var requestedPath = handler.RequestedUri!.ToString();
+        Assert.That(requestedPath, Does.Contain($"{YnabPlanApiPath}/{YnabApiPath.Payees}/{payeeId}"));
+    }
+
     private static PayeeClient CreateClient(string jsonContent, out TestHttpMessageHandler handler)
     {
         handler = new TestHttpMessageHandler(jsonContent);
@@ -77,5 +118,11 @@ public class PayeeClientTests
         => JsonSerializer.Serialize(new YnabHttpResponseContent<GetPayeesResponseData>
         {
             Data = new GetPayeesResponseData { Payees = payeeResponses }
+        });
+
+    private static string SerializePayeeResponse(PayeeResponse payeeResponse)
+        => JsonSerializer.Serialize(new YnabHttpResponseContent<GetPayeeResponseData>
+        {
+            Data = new GetPayeeResponseData { Payee = payeeResponse }
         });
 }
