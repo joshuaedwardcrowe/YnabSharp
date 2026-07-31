@@ -19,7 +19,7 @@ Vendored spec version: **1.86.0**. Last checked: **2026-07-26**.
 | Plans | list, get, settings | list, get | ⚠️ |
 | Accounts | list, create, get | list, create, get | ✅ |
 | Categories | list, get, update, month-get, month-update, group-create, group-update | list only | ⚠️ |
-| Payees | list, create, get, update | list only | ⚠️ |
+| Payees | list, create, get, update | list, get | ⚠️ |
 | Payee Locations | list, get, by-payee | nothing | ❌ |
 | Months | list, get | nothing | ❌ |
 | Money Movements | list, by-month, groups | nothing (new resource, unevaluated) | ❌ |
