@@ -195,10 +195,10 @@ not commitments to defend:
    invariant: *a `Done` item carrying an `Estimate` has a closing PR.*
    This is checked weekly by
    [`board-estimate-audit.yml`](.github/workflows/board-estimate-audit.yml)
-   across every delivery board, because it's a mechanical always-rule
-   and those belong in a machine rather than in anyone's memory (see
-   SoloCAIRN's philosophy §9). The audit only flags — it never edits
-   the board.
+   across this repo's delivery boards, because it's a mechanical
+   always-rule and those belong in a machine rather than in anyone's
+   memory (see SoloCAIRN's philosophy §9). The audit only flags — it
+   never edits the board.
 
 ### Status gates
 

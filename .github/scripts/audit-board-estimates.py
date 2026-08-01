@@ -25,10 +25,14 @@ from datetime import datetime, timedelta, timezone
 
 OWNER = "joshuaedwardcrowe"
 
-# Delivery boards carrying Fibonacci Estimate fields. The Ideas board (#10) and
-# the org-level Ideas boards (KitCli, Diagnosea) size in WAG/SWAG months rather
-# than points, so they have no equivalent invariant.
-PROJECTS = [1, 8, 9, 11, 12]
+# The delivery boards tracking *this repo's* work. Other repos audit their own
+# boards with their own copy of this script — a repo shouldn't be filing issues
+# about another repo's board hygiene on a schedule it owns.
+#
+# Boards are deliberately absent here rather than missing: the Ideas board (#10)
+# and the org-level Ideas boards (KitCli, Diagnosea) size in WAG/SWAG months
+# rather than Fibonacci points, so the invariant doesn't apply to them at all.
+PROJECTS = [11, 12]
 
 LOOKBACK_DAYS = 90
 
