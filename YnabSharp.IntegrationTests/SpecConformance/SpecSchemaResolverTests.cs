@@ -1,3 +1,5 @@
+using YnabSharp.Responses.Accounts;
+
 namespace YnabSharp.IntegrationTests.SpecConformance;
 
 public class SpecSchemaResolverTests
@@ -45,20 +47,20 @@ public class SpecSchemaResolverTests
 
         var schema = resolver.GetEffectiveSchema("Account");
 
-        Assert.That(schema.Properties, Does.Contain("balance"));
-        Assert.That(schema.Properties, Does.Contain("transfer_payee_id"));
+        Assert.That(schema.Properties, Does.Contain(AccountFieldNames.Balance));
+        Assert.That(schema.Properties, Does.Contain(AccountFieldNames.TransferPayeeId));
         Assert.That(schema.Required, Is.EquivalentTo(new[]
         {
-            "balance",
-            "cleared_balance",
-            "closed",
-            "deleted",
-            "id",
-            "name",
-            "on_budget",
-            "transfer_payee_id",
-            "type",
-            "uncleared_balance",
+            AccountFieldNames.Balance,
+            AccountFieldNames.ClearedBalance,
+            AccountFieldNames.Closed,
+            AccountFieldNames.Deleted,
+            AccountFieldNames.Id,
+            AccountFieldNames.Name,
+            AccountFieldNames.OnBudget,
+            AccountFieldNames.TransferPayeeId,
+            AccountFieldNames.Type,
+            AccountFieldNames.UnclearedBalance,
         }));
 
         Assert.That(schema.Properties, Does.Contain("balance_formatted"));
