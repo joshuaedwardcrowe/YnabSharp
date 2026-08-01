@@ -1,0 +1,11 @@
+components:
+  schemas:
+    Widget:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+        note:
+          type: string

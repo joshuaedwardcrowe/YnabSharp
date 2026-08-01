@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{528597EC-7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabSharp.Tests", "YnabSharp.Tests\YnabSharp.Tests.csproj", "{603D8C36-71AF-423D-B27D-F78C3B09EA0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabSharp.IntegrationTests", "YnabSharp.IntegrationTests\YnabSharp.IntegrationTests.csproj", "{F65B2047-0476-423A-BFB0-1BB547D9C52D}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ADR", "ADR", "{B5381D3F-A87C-459E-BE0F-27B0AC6A1D56}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabSharp.Seeder", "YnabSharp.Seeder\YnabSharp.Seeder.csproj", "{3C6F7CA2-069A-445D-94B6-13ACF289769A}"
@@ -29,6 +31,10 @@ Global
 		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{603D8C36-71AF-423D-B27D-F78C3B09EA0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65B2047-0476-423A-BFB0-1BB547D9C52D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65B2047-0476-423A-BFB0-1BB547D9C52D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65B2047-0476-423A-BFB0-1BB547D9C52D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65B2047-0476-423A-BFB0-1BB547D9C52D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C6F7CA2-069A-445D-94B6-13ACF289769A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C6F7CA2-069A-445D-94B6-13ACF289769A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C6F7CA2-069A-445D-94B6-13ACF289769A}.Release|Any CPU.ActiveCfg = Release|Any CPU
