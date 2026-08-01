@@ -21,4 +21,16 @@ public record AccountResponse
 
     [JsonPropertyName(AccountFieldNames.OnBudget)]
     public required bool OnBudget { get; set; }
+
+    [JsonPropertyName(AccountFieldNames.Balance)]
+    public required int Balance { get; set; }
+
+    [JsonPropertyName(AccountFieldNames.UnclearedBalance)]
+    public required int UnclearedBalance { get; set; }
+
+    [JsonPropertyName(AccountFieldNames.TransferPayeeId)]
+    public required Guid? TransferPayeeId { get; set; }
+
+    [JsonPropertyName(AccountFieldNames.Deleted)]
+    public required bool Deleted { get; set; }
 }
