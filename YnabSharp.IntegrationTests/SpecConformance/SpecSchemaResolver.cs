@@ -66,60 +66,71 @@ public sealed class SpecSchemaResolver
         HashSet<string> required,
         HashSet<string> visitedSchemaNames)
     {
-        if (TryMergeRef(memberNode, properties, required, visitedSchemaNames))
+        if (TryGetRefTarget(memberNode, out var referencedSchemaName))
         {
+            MergeReferencedSchema(referencedSchemaName, properties, required, visitedSchemaNames);
             return;
         }
 
-        if (TryMergeAllOf(memberNode, properties, required, visitedSchemaNames))
+        if (TryGetAllOfMembers(memberNode, out var allOfMembers))
         {
+            MergeAllOfMembers(allOfMembers, properties, required, visitedSchemaNames);
             return;
         }
 
-        MergeProperties(memberNode, properties);
-        MergeRequired(memberNode, required);
+        MergeInlineProperties(memberNode, properties);
+        MergeInlineRequiredFields(memberNode, required);
     }
 
-    private bool TryMergeRef(
-        YamlMappingNode memberNode,
+    private static bool TryGetRefTarget(YamlMappingNode memberNode, out string referencedSchemaName)
+    {
+        if (!memberNode.Children.TryGetValue(new YamlScalarNode("$ref"), out var refNode))
+        {
+            referencedSchemaName = "";
+            return false;
+        }
+
+        referencedSchemaName = ((YamlScalarNode)refNode).Value!.Split('/')[^1];
+        return true;
+    }
+
+    private void MergeReferencedSchema(
+        string referencedSchemaName,
         HashSet<string> properties,
         HashSet<string> required,
         HashSet<string> visitedSchemaNames)
     {
-        if (!memberNode.Children.TryGetValue(new YamlScalarNode("$ref"), out var refNode))
-        {
-            return false;
-        }
-
-        var referencedSchemaName = ((YamlScalarNode)refNode).Value!.Split('/')[^1];
         if (visitedSchemaNames.Add(referencedSchemaName))
         {
             MergeSchemaByName(referencedSchemaName, properties, required, visitedSchemaNames);
         }
+    }
 
+    private static bool TryGetAllOfMembers(YamlMappingNode memberNode, out YamlSequenceNode allOfMembers)
+    {
+        if (!memberNode.Children.TryGetValue(new YamlScalarNode("allOf"), out var allOfNode))
+        {
+            allOfMembers = null!;
+            return false;
+        }
+
+        allOfMembers = (YamlSequenceNode)allOfNode;
         return true;
     }
 
-    private bool TryMergeAllOf(
-        YamlMappingNode memberNode,
+    private void MergeAllOfMembers(
+        YamlSequenceNode allOfMembers,
         HashSet<string> properties,
         HashSet<string> required,
         HashSet<string> visitedSchemaNames)
     {
-        if (!memberNode.Children.TryGetValue(new YamlScalarNode("allOf"), out var allOfNode))
-        {
-            return false;
-        }
-
-        foreach (var member in (YamlSequenceNode)allOfNode)
+        foreach (var member in allOfMembers)
         {
             MergeSchemaMember((YamlMappingNode)member, properties, required, visitedSchemaNames);
         }
-
-        return true;
     }
 
-    private static void MergeProperties(YamlMappingNode memberNode, HashSet<string> properties)
+    private static void MergeInlineProperties(YamlMappingNode memberNode, HashSet<string> properties)
     {
         if (!memberNode.Children.TryGetValue(new YamlScalarNode("properties"), out var propertiesNode))
         {
@@ -132,7 +143,7 @@ public sealed class SpecSchemaResolver
         }
     }
 
-    private static void MergeRequired(YamlMappingNode memberNode, HashSet<string> required)
+    private static void MergeInlineRequiredFields(YamlMappingNode memberNode, HashSet<string> required)
     {
         if (!memberNode.Children.TryGetValue(new YamlScalarNode("required"), out var requiredNode))
         {
