@@ -1,0 +1,62 @@
+name: Board Estimate Audit
+
+on:
+  schedule:
+    # 06:00 UTC every Monday. Board data changes far more often than the YNAB
+    # spec does, so this runs weekly rather than monthly.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Audit delivery boards
+        id: audit
+        continue-on-error: true
+        env:
+          # Projects v2 is not reachable with the default GITHUB_TOKEN — this
+          # needs a PAT carrying `project` (read) and `repo` scope.
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+        run: python3 .github/scripts/audit-board-estimates.py
+
+      - name: Check for an existing open audit issue
+        if: steps.audit.outcome == 'failure'
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          count=$(gh issue list --search "Board estimates found on undelivered work in:title" --state open --json number --jq 'length')
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Open audit issue
+        if: steps.audit.outcome == 'failure' && steps.existing.outputs.count == '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          {
+            echo "One or more delivery-board items sit at \`Status: Done\` carrying an \`Estimate\`, but have no closing pull request."
+            echo ""
+            echo "Points on a \`Done\` item are what velocity is calculated from, so an item closed without delivering code — a spike superseded by its own sub-issues, an abandoned ticket, a duplicate — silently inflates it. See \`CONTRIBUTING.md\`'s \"Tickets with Estimates\"."
+            echo ""
+            cat violations.md
+            echo ""
+            echo "**To resolve:** for each row, either clear the \`Estimate\` (the work was never delivered under this ticket) or link the PR that delivered it (a genuine false positive). Don't leave it half-done — the next run will re-open this."
+            echo ""
+            echo "_Flagged automatically; this workflow never edits the board itself._"
+          } > /tmp/issue-body.md
+          gh issue create \
+            --title "Board estimates found on undelivered work" \
+            --label tech-debt,area:tooling,sev:medium \
+            --body-file /tmp/issue-body.md
+
+      - name: Fail the run if violations were found
+        if: steps.audit.outcome == 'failure'
+        run: |
+          echo "Board estimate audit found violations — see the run log and the tracking issue."
+          exit 1
