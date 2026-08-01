@@ -17,22 +17,28 @@ public class Plan(PlanResponse planResponse)
     /// <summary>
     /// When the plan was created.
     /// </summary>
-    public DateOnly Created => planResponse.FirstMonth;
+    public DateOnly? Created => planResponse.FirstMonth;
 
     /// <summary>
     /// When the plan was last active.
     /// </summary>
-    public DateOnly LastActive => planResponse.LastMonth;
+    public DateOnly? LastActive => planResponse.LastMonth;
 
     /// <summary>
-    /// Get the years a plan has been active.
+    /// Get the years a plan has been active. Empty if the plan has no
+    /// first/last month yet (e.g. a newly created plan with no transactions).
     /// </summary>
     public PlanYears GetYears()
     {
-        var planActiveYearCount = LastActive.Year - Created.Year; // e.g. 3
+        if (Created is not { } created || LastActive is not { } lastActive)
+        {
+            return new PlanYears([], []);
+        }
+
+        var planActiveYearCount = lastActive.Year - created.Year; // e.g. 3
 
         var planActiveYears = Enumerable
-            .Range(Created.Year, planActiveYearCount)
+            .Range(created.Year, planActiveYearCount)
             .ToList();
 
         var measurableYears = planActiveYears
