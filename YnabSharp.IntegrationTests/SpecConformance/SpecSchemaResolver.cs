@@ -12,19 +12,11 @@ public sealed class SpecSchemaResolver
 {
     private readonly YamlMappingNode _schemas;
 
-    private SpecSchemaResolver(YamlMappingNode schemas)
-    {
-        _schemas = schemas;
-    }
-
     public static SpecSchemaResolver FromYaml(TextReader specYaml)
     {
         var yamlStream = new YamlStream();
         yamlStream.Load(specYaml);
-        var rootMapping = (YamlMappingNode)yamlStream.Documents.Single().RootNode;
-        var componentsSection = GetChildMapping(rootMapping, "components");
-        var schemasSection = GetChildMapping(componentsSection, "schemas");
-        return new SpecSchemaResolver(schemasSection);
+        return new SpecSchemaResolver(ResolveSchemasSection(yamlStream));
     }
 
     public static SpecSchemaResolver FromFile(string specYamlPath)
@@ -33,74 +25,123 @@ public sealed class SpecSchemaResolver
         return FromYaml(reader);
     }
 
-    private static YamlMappingNode GetChildMapping(YamlMappingNode parent, string key) =>
-        (YamlMappingNode)parent.Children[new YamlScalarNode(key)];
-
     public SpecSchema GetEffectiveSchema(string schemaName)
     {
         var properties = new HashSet<string>();
         var required = new HashSet<string>();
-        CollectSchema(schemaName, properties, required, [schemaName]);
+        MergeSchemaByName(schemaName, properties, required, [schemaName]);
         return new SpecSchema(properties, required);
     }
 
-    private void CollectSchema(
+    private SpecSchemaResolver(YamlMappingNode schemas)
+    {
+        _schemas = schemas;
+    }
+
+    private static YamlMappingNode ResolveSchemasSection(YamlStream yamlStream)
+    {
+        var rootMapping = (YamlMappingNode)yamlStream.Documents.Single().RootNode;
+        var componentsSection = (YamlMappingNode)rootMapping.Children[new YamlScalarNode("components")];
+        return (YamlMappingNode)componentsSection.Children[new YamlScalarNode("schemas")];
+    }
+
+    private void MergeSchemaByName(
         string schemaName,
         HashSet<string> properties,
         HashSet<string> required,
-        HashSet<string> visited)
+        HashSet<string> visitedSchemaNames)
     {
-        if (!_schemas.Children.TryGetValue(new YamlScalarNode(schemaName), out var node))
+        if (!_schemas.Children.TryGetValue(new YamlScalarNode(schemaName), out var schemaNode))
         {
             throw new InvalidOperationException(
                 $"Schema '{schemaName}' was not found under components.schemas in the vendored spec.");
         }
 
-        CollectMember((YamlMappingNode)node, properties, required, visited);
+        MergeSchemaMember((YamlMappingNode)schemaNode, properties, required, visitedSchemaNames);
     }
 
-    private void CollectMember(
+    private void MergeSchemaMember(
         YamlMappingNode memberNode,
         HashSet<string> properties,
         HashSet<string> required,
-        HashSet<string> visited)
+        HashSet<string> visitedSchemaNames)
     {
-        if (memberNode.Children.TryGetValue(new YamlScalarNode("$ref"), out var refNode))
+        if (TryMergeRef(memberNode, properties, required, visitedSchemaNames))
         {
-            var refName = ((YamlScalarNode)refNode).Value!.Split('/')[^1];
-            if (!visited.Add(refName))
-            {
-                return;
-            }
-
-            CollectSchema(refName, properties, required, visited);
             return;
         }
 
-        if (memberNode.Children.TryGetValue(new YamlScalarNode("allOf"), out var allOfNode))
+        if (TryMergeAllOf(memberNode, properties, required, visitedSchemaNames))
         {
-            foreach (var member in (YamlSequenceNode)allOfNode)
-            {
-                CollectMember((YamlMappingNode)member, properties, required, visited);
-            }
-
             return;
         }
 
-        if (memberNode.Children.TryGetValue(new YamlScalarNode("properties"), out var propsNode))
+        MergeProperties(memberNode, properties);
+        MergeRequired(memberNode, required);
+    }
+
+    private bool TryMergeRef(
+        YamlMappingNode memberNode,
+        HashSet<string> properties,
+        HashSet<string> required,
+        HashSet<string> visitedSchemaNames)
+    {
+        if (!memberNode.Children.TryGetValue(new YamlScalarNode("$ref"), out var refNode))
         {
-            foreach (var key in ((YamlMappingNode)propsNode).Children.Keys)
-            {
-                properties.Add(((YamlScalarNode)key).Value!);
-            }
+            return false;
         }
 
-        if (memberNode.Children.TryGetValue(new YamlScalarNode("required"), out var requiredNode))
+        var referencedSchemaName = ((YamlScalarNode)refNode).Value!.Split('/')[^1];
+        if (visitedSchemaNames.Add(referencedSchemaName))
         {
-            foreach (var item in (YamlSequenceNode)requiredNode)
-            {
-                required.Add(((YamlScalarNode)item).Value!);
-            }
+            MergeSchemaByName(referencedSchemaName, properties, required, visitedSchemaNames);
+        }
+
+        return true;
+    }
+
+    private bool TryMergeAllOf(
+        YamlMappingNode memberNode,
+        HashSet<string> properties,
+        HashSet<string> required,
+        HashSet<string> visitedSchemaNames)
+    {
+        if (!memberNode.Children.TryGetValue(new YamlScalarNode("allOf"), out var allOfNode))
+        {
+            return false;
+        }
+
+        foreach (var member in (YamlSequenceNode)allOfNode)
+        {
+            MergeSchemaMember((YamlMappingNode)member, properties, required, visitedSchemaNames);
+        }
+
+        return true;
+    }
+
+    private static void MergeProperties(YamlMappingNode memberNode, HashSet<string> properties)
+    {
+        if (!memberNode.Children.TryGetValue(new YamlScalarNode("properties"), out var propertiesNode))
+        {
+            return;
+        }
+
+        foreach (var key in ((YamlMappingNode)propertiesNode).Children.Keys)
+        {
+            properties.Add(((YamlScalarNode)key).Value!);
+        }
+    }
+
+    private static void MergeRequired(YamlMappingNode memberNode, HashSet<string> required)
+    {
+        if (!memberNode.Children.TryGetValue(new YamlScalarNode("required"), out var requiredNode))
+        {
+            return;
+        }
+
+        foreach (var item in (YamlSequenceNode)requiredNode)
+        {
+            required.Add(((YamlScalarNode)item).Value!);
         }
     }
 }

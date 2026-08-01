@@ -2,13 +2,11 @@ namespace YnabSharp.IntegrationTests.SpecConformance;
 
 public class SpecSchemaResolverTests
 {
-    private static string FixturePath(string fileName) =>
-        Path.Combine(AppContext.BaseDirectory, "SpecConformance", "Fixtures", fileName);
-
     [Test]
     public void GivenPlainObjectSchema_WhenGetEffectiveSchema_ThenReturnsItsOwnPropertiesAndRequired()
     {
-        var resolver = SpecSchemaResolver.FromFile(FixturePath("plain-object-schema.yaml"));
+        var fixturePath = GetFixtureFilePath("plain-object-schema.yaml");
+        var resolver = SpecSchemaResolver.FromFile(fixturePath);
 
         var schema = resolver.GetEffectiveSchema("Widget");
 
@@ -19,7 +17,8 @@ public class SpecSchemaResolverTests
     [Test]
     public void GivenAllOfWithRefAndInlineMember_WhenGetEffectiveSchema_ThenMergesBothMembers()
     {
-        var resolver = SpecSchemaResolver.FromFile(FixturePath("all-of-with-ref-and-inline-member.yaml"));
+        var fixturePath = GetFixtureFilePath("all-of-with-ref-and-inline-member.yaml");
+        var resolver = SpecSchemaResolver.FromFile(fixturePath);
 
         var schema = resolver.GetEffectiveSchema("Widget");
 
@@ -30,7 +29,8 @@ public class SpecSchemaResolverTests
     [Test]
     public void GivenUnknownSchemaName_WhenGetEffectiveSchema_ThenThrows()
     {
-        var resolver = SpecSchemaResolver.FromFile(FixturePath("unknown-schema.yaml"));
+        var fixturePath = GetFixtureFilePath("unknown-schema.yaml");
+        var resolver = SpecSchemaResolver.FromFile(fixturePath);
 
         Assert.That(
             () => resolver.GetEffectiveSchema("DoesNotExist"),
@@ -40,8 +40,8 @@ public class SpecSchemaResolverTests
     [Test]
     public void GivenAccount_WhenGetEffectiveSchema_ThenResolvesInheritedAccountBaseFields()
     {
-        var resolver = SpecSchemaResolver.FromFile(
-            Path.Combine(AppContext.BaseDirectory, "ynab-openapi-spec.yaml"));
+        var vendoredSpecPath = Path.Combine(AppContext.BaseDirectory, "ynab-openapi-spec.yaml");
+        var resolver = SpecSchemaResolver.FromFile(vendoredSpecPath);
 
         var schema = resolver.GetEffectiveSchema("Account");
 
@@ -63,4 +63,7 @@ public class SpecSchemaResolverTests
 
         Assert.That(schema.Properties, Does.Contain("balance_formatted"));
     }
+
+    private static string GetFixtureFilePath(string fileName) =>
+        Path.Combine(AppContext.BaseDirectory, "SpecConformance", "Fixtures", fileName);
 }
