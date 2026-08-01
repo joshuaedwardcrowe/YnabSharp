@@ -2,7 +2,7 @@ namespace YnabSharp.Collections;
 
 public class TransactionsByPayeeName
 {
-    public required string PayeeName { get; set; }
+    public required string? PayeeName { get; set; }
     public required IEnumerable<Transaction> Transactions { get; set; }
     
     public  IEnumerable<TransactionsByMemoOccurrence> GroupByMemoOccurrence() 

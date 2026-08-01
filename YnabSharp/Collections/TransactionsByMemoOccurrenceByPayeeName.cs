@@ -1,5 +1,5 @@
 namespace YnabSharp.Collections;
 
 public record TransactionsByMemoOccurrenceByPayeeName(
-    string PayeeName, 
+    string? PayeeName,
     IEnumerable<TransactionsByMemoOccurrence> TransactionsByMemoOccurrences);

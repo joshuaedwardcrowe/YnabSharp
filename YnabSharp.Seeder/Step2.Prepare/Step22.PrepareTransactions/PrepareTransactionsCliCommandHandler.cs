@@ -30,7 +30,12 @@ public class PrepareTransactionsCliCommandHandler : ICliCommandHandler<PrepareTr
         {
             Columns = ["Category Name", "Payee Name", "Amount"],
             Rows = transactionResponses
-                .Select(a => new List<object> { a.CategoryName, a.PayeeName, a.Amount })
+                .Select(a => new List<object>
+                {
+                    a.CategoryName ?? string.Empty,
+                    a.PayeeName ?? string.Empty,
+                    a.Amount,
+                })
                 .ToList()
         };
 
