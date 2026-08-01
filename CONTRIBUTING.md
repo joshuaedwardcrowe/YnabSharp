@@ -187,6 +187,19 @@ not commitments to defend:
    note](https://github.com/joshuaedwardcrowe/SoloCAIRN/blob/main/docs/03-lifecycle.md)
    for the full reasoning.
 
+   **When a ticket gets split, clear its `Estimate`.** Once the work
+   lives on sub-issues, an estimate left on the parent is counted
+   twice, and if the parent is then closed as superseded those points
+   land in `Done` without any code behind them — silently inflating
+   velocity, which is calculated from exactly that number. The
+   invariant: *a `Done` item carrying an `Estimate` has a closing PR.*
+   This is checked weekly by
+   [`board-estimate-audit.yml`](.github/workflows/board-estimate-audit.yml)
+   across every delivery board, because it's a mechanical always-rule
+   and those belong in a machine rather than in anyone's memory (see
+   SoloCAIRN's philosophy §9). The audit only flags — it never edits
+   the board.
+
 ### Status gates
 
 Once a ticket has an Estimate (step 7 above), the [YnabSharp API
