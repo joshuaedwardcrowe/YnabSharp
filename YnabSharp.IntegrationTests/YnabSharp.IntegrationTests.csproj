@@ -28,6 +28,9 @@
         <Content Include="..\docs\ynab-openapi-spec.yaml" Link="ynab-openapi-spec.yaml">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
+        <Content Include="SpecConformance\Fixtures\**\*.yaml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>

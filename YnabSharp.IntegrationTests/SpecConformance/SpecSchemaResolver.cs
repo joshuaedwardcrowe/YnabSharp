@@ -21,10 +21,10 @@ public sealed class SpecSchemaResolver
     {
         var yamlStream = new YamlStream();
         yamlStream.Load(specYaml);
-        var root = (YamlMappingNode)yamlStream.Documents[0].RootNode;
-        var components = (YamlMappingNode)root.Children[new YamlScalarNode("components")];
-        var schemas = (YamlMappingNode)components.Children[new YamlScalarNode("schemas")];
-        return new SpecSchemaResolver(schemas);
+        var rootMapping = (YamlMappingNode)yamlStream.Documents.Single().RootNode;
+        var componentsSection = GetChildMapping(rootMapping, "components");
+        var schemasSection = GetChildMapping(componentsSection, "schemas");
+        return new SpecSchemaResolver(schemasSection);
     }
 
     public static SpecSchemaResolver FromFile(string specYamlPath)
@@ -32,6 +32,9 @@ public sealed class SpecSchemaResolver
         using var reader = new StreamReader(specYamlPath);
         return FromYaml(reader);
     }
+
+    private static YamlMappingNode GetChildMapping(YamlMappingNode parent, string key) =>
+        (YamlMappingNode)parent.Children[new YamlScalarNode(key)];
 
     public SpecSchema GetEffectiveSchema(string schemaName)
     {
