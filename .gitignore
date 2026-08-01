@@ -400,5 +400,5 @@ FodyWeavers.xsd
 
 .idea
 
-# Runtime output from .github/scripts/audit-board-estimates.py
+# Runtime output from .github/tools/AuditBoardEstimates.cs
 violations.md

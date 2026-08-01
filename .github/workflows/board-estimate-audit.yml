@@ -16,17 +16,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
       - name: Audit delivery boards
         id: audit
-        continue-on-error: true
         env:
           # Projects v2 is not reachable with the default GITHUB_TOKEN — this
           # needs a PAT carrying `project` (read) and `repo` scope.
           GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
-        run: python3 .github/scripts/audit-board-estimates.py
+          VIOLATIONS_PATH: ${{ github.workspace }}/violations.md
+        run: |
+          set +e
+          dotnet run .github/tools/AuditBoardEstimates.cs
+          code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
 
       - name: Check for an existing open audit issue
-        if: steps.audit.outcome == 'failure'
+        if: steps.audit.outputs.code == '1'
         id: existing
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -35,7 +44,7 @@ jobs:
           echo "count=$count" >> "$GITHUB_OUTPUT"
 
       - name: Open audit issue
-        if: steps.audit.outcome == 'failure' && steps.existing.outputs.count == '0'
+        if: steps.audit.outputs.code == '1' && steps.existing.outputs.count == '0'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -44,7 +53,7 @@ jobs:
             echo ""
             echo "Points on a \`Done\` item are what velocity is calculated from, so an item closed without delivering code — a spike superseded by its own sub-issues, an abandoned ticket, a duplicate — silently inflates it. See \`CONTRIBUTING.md\`'s \"Tickets with Estimates\"."
             echo ""
-            cat violations.md
+            cat "${{ github.workspace }}/violations.md"
             echo ""
             echo "**To resolve:** for each row, either clear the \`Estimate\` (the work was never delivered under this ticket) or link the PR that delivered it (a genuine false positive). Don't leave it half-done — the next run will re-open this."
             echo ""
@@ -55,8 +64,17 @@ jobs:
             --label tech-debt,area:tooling,sev:medium \
             --body-file /tmp/issue-body.md
 
-      - name: Fail the run if violations were found
-        if: steps.audit.outcome == 'failure'
+      # Exit 2 means the audit could not run at all — a missing token, an HTTP
+      # or GraphQL error, a board that returned nothing. That is a broken gate,
+      # not a clean board, and must never be mistaken for a pass.
+      - name: Fail if the audit could not run
+        if: steps.audit.outputs.code == '2'
         run: |
-          echo "Board estimate audit found violations — see the run log and the tracking issue."
+          echo "::error::Board estimate audit could not read the boards — this is not a pass. Check PROJECTS_TOKEN exists and carries `project` + `repo` scope."
+          exit 1
+
+      - name: Fail if violations were found
+        if: steps.audit.outputs.code == '1'
+        run: |
+          echo "::error::Board estimate audit found violations — see the log and the tracking issue."
           exit 1
