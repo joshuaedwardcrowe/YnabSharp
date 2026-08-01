@@ -18,6 +18,11 @@ namespace YnabSharp.IntegrationTests.SpecConformance;
 /// spec's "detail"/"summary" resource schemas, not the *Response wrapper
 /// schemas (those wrap a `data` envelope YnabSharp's HTTP layer already
 /// unwraps before deserializing into these DTOs).
+///
+/// SplitTransactionResponse is deliberately excluded: it's a shared base
+/// across TransactionResponse, subtransaction items, and conceptually
+/// ScheduledTransactionsResponse, and doesn't map to any single spec schema
+/// (see #137).
 /// </summary>
 public class ResponseDtoSpecConformanceTests
 {
@@ -40,8 +45,6 @@ public class ResponseDtoSpecConformanceTests
             .SetName("ScheduledTransactionsResponse_vs_ScheduledTransactionSummary");
         yield return new TestCaseData(typeof(TransactionResponse), "TransactionDetail")
             .SetName("TransactionResponse_vs_TransactionDetail");
-        yield return new TestCaseData(typeof(SplitTransactionResponse), "TransactionSummaryBase")
-            .SetName("SplitTransactionResponse_vs_TransactionSummaryBase");
     }
 
     [TestCaseSource(nameof(DtoSchemaMappings))]
