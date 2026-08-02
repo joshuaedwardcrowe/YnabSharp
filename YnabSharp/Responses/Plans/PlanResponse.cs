@@ -8,7 +8,7 @@ public class PlanResponse
     public Guid Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     [JsonPropertyName("first_month")]
     public DateOnly FirstMonth { get; set; }

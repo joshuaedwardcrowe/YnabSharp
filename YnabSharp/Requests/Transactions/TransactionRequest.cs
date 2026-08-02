@@ -4,8 +4,8 @@ namespace YnabSharp.Requests.Transactions;
 
 public class TransactionRequest
 {
-    [JsonPropertyName("id")] 
-    public string Id { get; set; }
+    [JsonPropertyName("id")]
+    public required string Id { get; set; }
 
     [JsonPropertyName("memo")]
     public string? Memo { get; set; }
