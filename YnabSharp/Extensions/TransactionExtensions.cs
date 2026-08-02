@@ -20,7 +20,8 @@ public static class TransactionExtensions
     
     public static IEnumerable<Transaction> FilterOutAutomations(
         this IEnumerable<Transaction> transactions)
-             => transactions.Where(transaction => !AutomatedPayeeNames.All.Contains(transaction.PayeeName));
+             => transactions.Where(transaction =>
+                 transaction.PayeeName is null || !AutomatedPayeeNames.All.Contains(transaction.PayeeName));
     
     public static IEnumerable<Transaction> FilterOutCategories(
         this IEnumerable<Transaction> transactions, IEnumerable<Guid> categoryIds)
@@ -37,7 +38,7 @@ public static class TransactionExtensions
     
     public static IEnumerable<Transaction> FilterToPayeeNames(
         this IEnumerable<Transaction> transactions, params string[] payeeNames)
-            => transactions.Where(t => payeeNames.Contains(t.PayeeName));
+            => transactions.Where(t => t.PayeeName is not null && payeeNames.Contains(t.PayeeName));
 
     public static IEnumerable<Transaction> FilterFrom(
         this IEnumerable<Transaction> transactions, DateOnly startDate)
@@ -55,6 +56,6 @@ public static class TransactionExtensions
 
     public static IEnumerable<Transaction> FilterToSpending(this IEnumerable<Transaction> transactions)
         => transactions.Where(transaction =>
-            !transaction.IsTransfer && 
-            !AutomatedPayeeNames.All.Contains(transaction.PayeeName));
+            !transaction.IsTransfer &&
+            (transaction.PayeeName is null || !AutomatedPayeeNames.All.Contains(transaction.PayeeName)));
 }

@@ -6,6 +6,10 @@ public class Transaction(TransactionResponse transactionResponse) : SplitTransac
 {
     public string? FlagName => transactionResponse.FlagName;
     public FlagColor? FlagColour => transactionResponse.FlagColor;
+    public bool Approved => transactionResponse.Approved;
+    public TransactionClearedStatus Cleared => transactionResponse.Cleared;
+    public bool Deleted => transactionResponse.Deleted;
+    public string AccountName => transactionResponse.AccountName;
     public IEnumerable<SplitTransactions> SplitTransactions 
         => transactionResponse
             .SplitTransactions

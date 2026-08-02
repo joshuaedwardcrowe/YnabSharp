@@ -11,9 +11,9 @@ public class SplitTransactions(SplitTransactionResponse splitTransactionResponse
     public string? Memo => splitTransactionResponse.Memo;
     public decimal Amount => MilliunitConverter.Calculate(splitTransactionResponse.Amount);
     public Guid? PayeeId => splitTransactionResponse.PayeeId;
-    public string PayeeName => splitTransactionResponse.PayeeName;
+    public string? PayeeName => splitTransactionResponse.PayeeName;
     public Guid? CategoryId => splitTransactionResponse.CategoryId;
-    public string CategoryName => splitTransactionResponse.CategoryName;
+    public string? CategoryName => splitTransactionResponse.CategoryName;
     public bool IsTransfer => !string.IsNullOrEmpty(splitTransactionResponse.TransferTransactionId);
     public Guid? AccountId => splitTransactionResponse.AccountId;
     
