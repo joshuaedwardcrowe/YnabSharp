@@ -11,8 +11,8 @@ public class PlanResponse
     public required string Name { get; set; }
 
     [JsonPropertyName("first_month")]
-    public DateOnly FirstMonth { get; set; }
+    public DateOnly? FirstMonth { get; set; }
 
     [JsonPropertyName("last_month")]
-    public DateOnly LastMonth { get; set; }
+    public DateOnly? LastMonth { get; set; }
 }
