@@ -5,7 +5,11 @@ namespace YnabSharp;
 
 public class CategoryGroup(CategoryGroupResponse categoryGroupResponse)
 {
+    public Guid Id => categoryGroupResponse.Id;
     public string Name => categoryGroupResponse.Name;
+    public bool Hidden => categoryGroupResponse.Hidden;
+    public bool Internal => categoryGroupResponse.Internal;
+    public bool Deleted => categoryGroupResponse.Deleted;
     
     /// <summary>
     /// Money in these categories available to spend.
