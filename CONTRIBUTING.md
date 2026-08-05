@@ -140,10 +140,14 @@ Work bigger than a single issue goes through a pipeline biased toward
 re-planning over predicting — estimates are inputs to prioritization,
 not commitments to defend:
 
-1. **WAG** — a fast, rough gut-feel estimate (in months), logged on the
-   shared [Ideas board](https://github.com/users/joshuaedwardcrowe/projects/10)'s
+1. **WAG** — a fast, rough gut-feel estimate (in months), logged on
+   [YnabSharp's own Ideas board](https://github.com/users/joshuaedwardcrowe/projects/14)'s
    `WAG (months)` field, purely to judge whether an idea is worth
-   pursuing at all. Non-binding — expected to be wrong.
+   pursuing at all. Non-binding — expected to be wrong. Ideas that
+   don't pertain to this repo specifically (cross-cutting, or not yet
+   homed anywhere) go on the [shared personal-account Ideas
+   board](https://github.com/users/joshuaedwardcrowe/projects/10)
+   instead.
 2. **SWAG** — the same estimate, re-checked against everything else
    competing for the slot, logged in the same board's `SWAG (months)`
    field. **Setting `Priority` (`High`/`Medium`/`Low`) is mandatory at
