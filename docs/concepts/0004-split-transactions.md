@@ -1,4 +1,4 @@
-# Split transactions
+# 0004. Split transactions
 
 ## Premise
 
@@ -35,7 +35,7 @@ plus its own children.
 **Domain (`SplitTransactions.cs`, `Transaction.cs`):**
 `SplitTransactions` wraps a `SplitTransactionResponse` and exposes the
 converted (milliunit → pounds, via
-[`MilliunitConverter`](milliunit-currency-conversion.md)) view of one
+[`MilliunitConverter`](0003-milliunit-currency-conversion.md)) view of one
 line item: `Id`, `Occured`, `Memo`, `Amount`, `PayeeId`/`PayeeName`,
 `CategoryId`/`CategoryName`, `IsTransfer`, `AccountId`, plus
 `IsFullyFormed` (has a payee, category, and memo) and

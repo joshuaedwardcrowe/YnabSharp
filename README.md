@@ -46,9 +46,9 @@ var accountTransactions = await account.GetTransactions();  // that account's tr
 `transaction.Amount` above is already a `decimal` in pounds — YNAB's
 API represents money as integer milliunits on the wire, converted
 automatically at the boundary. See
-[`docs/concepts/milliunit-currency-conversion.md`](docs/concepts/milliunit-currency-conversion.md)
+[`docs/concepts/0003-milliunit-currency-conversion.md`](docs/concepts/0003-milliunit-currency-conversion.md)
 before writing any code that reads or writes an amount directly, and
-[`docs/concepts/connected-domain-objects.md`](docs/concepts/connected-domain-objects.md)
+[`docs/concepts/0002-connected-domain-objects.md`](docs/concepts/0002-connected-domain-objects.md)
 for more on the chaining above.
 
 ## Learn more
@@ -57,9 +57,9 @@ for more on the chaining above.
   propose a change. Read this before touching anything that moves real
   money.
 - [`docs/concepts/`](docs/concepts/) — how each subsystem actually
-  works today: [milliunit conversion](docs/concepts/milliunit-currency-conversion.md),
-  [split transactions](docs/concepts/split-transactions.md),
-  [connected domain objects](docs/concepts/connected-domain-objects.md)
+  works today: [milliunit conversion](docs/concepts/0003-milliunit-currency-conversion.md),
+  [split transactions](docs/concepts/0004-split-transactions.md),
+  [connected domain objects](docs/concepts/0002-connected-domain-objects.md)
   (the `ConnectedPlan`/`ConnectedAccount` pattern used above).
 - [`docs/adr/`](docs/adr/) — architectural decisions and why.
 - [`docs/reviews/`](docs/reviews/) — past architectural reviews.

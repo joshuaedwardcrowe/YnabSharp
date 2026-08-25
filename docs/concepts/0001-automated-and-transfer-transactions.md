@@ -1,4 +1,4 @@
-# Automated & transfer transactions
+# 0001. Automated & transfer transactions
 
 ## Premise
 
@@ -33,7 +33,7 @@ public bool IsTransfer => !string.IsNullOrEmpty(splitTransactionResponse.Transfe
 
 Because `Transaction : SplitTransactions`, this is available on both a
 whole transaction and on any of its
-[split line items](split-transactions.md).
+[split line items](0004-split-transactions.md).
 
 **Automated entries** are a fixed list, not a computed property:
 `AutomatedPayeeNames` (`YnabSharp/AutomatedPayeeNames.cs`) defines the
@@ -63,7 +63,7 @@ inflate a raw sum otherwise.
 
 A third, narrower rule lives in
 `ConnectedPlan.MoveAccountTransactions` (see
-[connected domain objects](connected-domain-objects.md)): when moving a
+[connected domain objects](0002-connected-domain-objects.md)): when moving a
 transaction history from one account to another, it excludes only
 `AutomatedPayeeNames.StartingBalance` — not the full `All` list, and not
 transfers — before moving the rest:

@@ -1,4 +1,4 @@
-# Connected domain objects
+# 0002. Connected domain objects
 
 ## Premise
 

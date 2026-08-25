@@ -16,7 +16,7 @@ real change volume, since calendar time alone doesn't mean anything
 architectural actually moved.
 
 **Last full architectural review: 2026-07-25** (write-up:
-[`docs/reviews/2026-07-25-architectural-review.md`](../../docs/reviews/2026-07-25-architectural-review.md)),
+[`docs/reviews/0001-architectural-review.md`](../../docs/reviews/0001-architectural-review.md)),
 at commit `58b9c4a6aa84a0925665ad44f3ad84b95ee8ec00`.
 
 Before starting a new *full* review pass (not before every invocation of
