@@ -170,6 +170,10 @@ not commitments to defend:
    delivery-stage ticket for the actual build — don't retitle or reuse
    the spike issue in place. That new ticket gets sized in a normal
    backlog-refinement pass, not as part of the spike itself.
+
+   On new complexity found, the issue that prompted the spike stays open
+   as the parent and the build hangs off it as sub-issues, in delivery
+   order. The spike issue closes either way; it answered its question.
 6. **Fixed-length iterations + end-of-iteration review** — work in
    short, regular iterations rather than open-ended milestone spans.
    At the end of each one: check what actually got done vs. planned,
